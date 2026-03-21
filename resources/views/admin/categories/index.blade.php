@@ -88,7 +88,7 @@
                 </div>
 
             @else
-                <h2>{{ trans('no_data_found') }}</h2>
+                <h2>{{ trans('no data found') }}</h2>
             @endif
         </div>
 

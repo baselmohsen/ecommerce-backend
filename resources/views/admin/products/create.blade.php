@@ -33,6 +33,12 @@
                     <textarea name="description" class="form-control">{{ old('description') }}</textarea>
                 </div>
 
+                {{-- sale_price --}}
+                <div class="form-group">
+                    <label>{{ trans('sale price') }}</label>
+                    <input type="number" step="0.01" name="sale_price" class="form-control" value="{{ old('sale_price') }}">
+                </div>
+
                 {{-- Price --}}
                 <div class="form-group">
                     <label>{{ trans('price') }}</label>

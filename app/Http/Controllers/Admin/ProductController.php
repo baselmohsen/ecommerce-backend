@@ -48,6 +48,7 @@ class ProductController extends Controller
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
             'price'       => 'required|numeric',
+            'sale_price'       => 'required|numeric',
             'stock'       => 'required|integer',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'expiry_date' => 'nullable|date',
@@ -88,6 +89,7 @@ class ProductController extends Controller
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
             'price'       => 'required|numeric',
+            'sale_price'       => 'required|numeric',
             'stock'       => 'required|integer',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'expiry_date' => 'nullable|date',
@@ -121,5 +123,8 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully');
+
+
+
     }
 }

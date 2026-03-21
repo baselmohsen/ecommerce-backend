@@ -7,7 +7,7 @@ return [
     "categories.update" => "Update Categories",
     "categories.create" => "Create Categories",
     "categories.delete" => "Delete Categories",
-
+    "dashboard.view" => " View Dashboard",
     // Products
     "products.index"       => "Show Products",
     "products.update"      => "Update Products",

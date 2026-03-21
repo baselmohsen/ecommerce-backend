@@ -7,7 +7,7 @@
     <div class="box box-primary">
 
         <div class="box-header d-flex justify-content-between mb-2">
-            <h3 class="box-title">{{ trans('edit_product') }}</h3>
+            <h3 class="box-title">{{ trans('edit product') }}</h3>
             <a class="btn btn-info" href="{{ route('admin.products.index') }}">{{ trans('back') }}</a>
         </div>
 
@@ -32,6 +32,12 @@
                     <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
                 </div>
 
+                {{-- sale_price --}}
+                <div class="form-group">
+                    <label>{{ trans('sale price') }}</label>
+                    <input type="number" step="0.01" name="sale_price" class="form-control" value="{{ old('sale_price', $product->price) }}">
+                </div>
+
                 {{-- Price --}}
                 <div class="form-group">
                     <label>{{ trans('price') }}</label>
@@ -46,7 +52,7 @@
 
                 {{-- Expiry Date --}}
                 <div class="form-group">
-                    <label>{{ trans('expiry_date') }}</label>
+                    <label>{{ trans('expiry date') }}</label>
                     <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date', $product->expiry_date) }}">
                 </div>
 

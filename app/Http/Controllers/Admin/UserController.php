@@ -10,17 +10,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+     public function __construct()
+        {
+            $this->authorizeResource(User::class, 'user');
+        }
+    public function index(Request $request)
+        {
 
- public function index(Request $request)
-    {
+            $users = User::where('type', 'admin') 
+                ->when($request->search, function ($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->paginate(10);
 
-        $users = User::when($request->search, function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->search . '%');
-            })
-            ->paginate(10);
-
-        return view('admin.users.index', compact('users'));
-    }
+            return view('admin.users.index', compact('users'));
+        }
 
     // Show create page
     public function create()
@@ -44,6 +48,8 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $data['name'],
                 'email'=> $data['email'],
+                'email_verified_at'=> now(),
+                'type'=> 'admin',
                 'password'=> Hash::make($data['password']),
             ]);
 
@@ -144,10 +150,10 @@ class UserController extends Controller
     DB::beginTransaction();
 
     try {
-        // حذف صلاحيات المستخدم أولًا
+       
         DB::table('users_permissions')->where('user_id', $user->id)->delete();
 
-        // حذف المستخدم
+       
         $user->delete();
 
         DB::commit();

@@ -7,7 +7,7 @@
     <div class="box box-primary">
 
         <div class="box-header d-flex justify-content-between mb-2">
-            <h3 class="box-title">{{ trans('add_categories') }}</h3>
+            <h3 class="box-title">{{ trans('add categories') }}</h3>
             <a class="btn btn-info" href="{{ route('admin.categories.index') }}">
                 {{ trans('back') }}
             </a>
@@ -42,9 +42,9 @@
 
                 {{-- parent category --}}
                 <div class="form-group">
-                    <label>{{ trans('parent_category') }}</label>
+                    <label>{{ trans('parent category') }}</label>
                     <select name="parent_id" class="form-control">
-                        <option value="">{{ trans('no_parent') }}</option>
+                        <option value="">{{ trans('no parent') }}</option>
 
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"

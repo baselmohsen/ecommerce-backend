@@ -46,6 +46,7 @@
                             <th>{{ trans('description') }}</th>
                             <th>{{ trans('category') }}</th>
                             <th>{{ trans('price') }}</th>
+                            <th>{{ trans('sale price') }}</th>
                             <th>{{ trans('stock') }}</th>
                             <th>{{ trans('expiry_date') }}</th>
                             <th>{{ trans('actions') }}</th>
@@ -59,6 +60,7 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->category ? $product->category->name : '-' }}</td>
                             <td>{{ $product->price }}</td>
+                            <td>{{ $product->sale_price }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->expiry_date ?? '-' }}</td>
                           

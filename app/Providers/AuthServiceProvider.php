@@ -6,6 +6,8 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Policies\CategoryPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::before(function ($user, $ability) {
+                        if ($user->type = 'super_admin') {
+                            return true;
+                        }
+                    });
+                Gate::define('dashboard.view',function($user) {
+                         return DB::table('users_permissions')->where([
+                    'user_id'=>$user->id,
+                    'permission'=>'dashboard.view',
+                ])->exists();
+                });
     }
 }

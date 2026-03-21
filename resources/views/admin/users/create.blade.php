@@ -7,7 +7,7 @@
     <div class="box box-primary">
 
         <div class="box-header d-flex justify-content-between mb-2">
-            <h3 class="box-title">{{ trans('add_user') }}</h3>
+            <h3 class="box-title">{{ trans('add user') }}</h3>
             <a class="btn btn-info" href="{{ route('admin.users.index') }}">
                 <i class="fa fa-arrow-left"></i> {{ trans('back') }}
             </a>
@@ -41,27 +41,28 @@
 
                 {{-- Confirm Password --}}
                 <div class="form-group">
-                    <label>{{ trans('confirm_password') }}</label>
+                    <label>{{ trans('confirm password') }}</label>
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
 
                 {{-- Permissions --}}
-                <div class="form-group">
-                    <label>{{ trans('permissions') }}</label>
-                    <div>
-                        @foreach ($permissions as $code => $label)
-                            <div class="form-check">
-                                <input type="checkbox" name="permissions[]" value="{{ $code }}" class="form-check-input" id="perm_{{ $code }}">
-                                <label class="form-check-label" for="perm_{{ $code }}">{{ $label }}</label>
-                            </div>
-                        @endforeach
+        <div class="form-group">
+            <label>{{ trans('permissions') }}</label>
+            <div class="row">
+                @foreach ($permissions as $code => $label)
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-check">
+                            <input type="checkbox" name="permissions[]" value="{{ $code }}" class="form-check-input" id="perm_{{ $code }}">
+                            <label class="form-check-label" for="perm_{{ $code }}">{{ $label }}</label>
+                        </div>
                     </div>
-                </div>
-
+                @endforeach
+            </div>
+        </div>
                 {{-- Submit --}}
                 <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-plus"></i> {{ trans('add_user') }}
+                        <i class="fa fa-plus"></i> {{ trans('add user') }}
                     </button>
                 </div>
 

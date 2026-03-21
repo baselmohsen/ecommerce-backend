@@ -163,69 +163,58 @@
 <script src="{{ asset('admin_assets/js/custom/roles.js') }}"></script>
 
 <script>
+
+
     $(document).ready(function () {
 
-        //delete
-        $(document).on('click', '.delete, #bulk-delete', function (e) {
+       
+   //delete
+   $('.delete').click(function (e) {
 
-            var that = $(this)
+var that = $(this)
 
-            e.preventDefault();
+e.preventDefault();
 
-            var n = new Noty({
-                text: "@lang('productsconfirm_delete')",
-                type: "alert",
-                killer: true,
-                buttons: [
-                    Noty.button("@lang('productsyes')", 'btn btn-success mr-2', function () {
-                        let url = that.closest('form').attr('action');
-                        let data = new FormData(that.closest('form').get(0));
+var n = new Noty({
+    text: "@lang('confirm delete')",
+    type: "warning",
+    killer: true,
+    buttons: [
+        Noty.button("@lang('yes')", 'btn btn-success mr-2', function () {
+            that.closest('form').submit();
+        }),
 
-                        let loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i>';
-                        let originalText = that.html();
-                        that.html(loadingText);
+        Noty.button("@lang('no')", 'btn btn-primary mr-2', function () {
+            n.close();
+        })
+    ]
+});
 
-                        n.close();
+n.show();
 
-                        $.ajax({
-                            url: url,
-                            data: data,
-                            method: 'post',
-                            processData: false,
-                            contentType: false,
-                            cache: false,
-                            success: function (response) {
-
-                                $("#record__select-all").prop("checked", false);
-
-                                $('.datatable').DataTable().ajax.reload();
-
-                                new Noty({
-                                    layout: 'topRight',
-                                    type: 'alert',
-                                    text: response,
-                                    killer: true,
-                                    timeout: 2000,
-                                }).show();
-
-                                that.html(originalText);
-                            },
-
-                        });//end of ajax call
-
-                    }),
-
-                    Noty.button("@lang('productsno')", 'btn btn-danger mr-2', function () {
-                        n.close();
-                    })
-                ]
-            });
-
-            n.show();
-
-        });//end of delete
+});//end of delete
 
     });//end of document ready
+
+
+       // image preview
+        $(".image").change(function () {
+        
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+        
+                reader.onload = function (e) {
+                    $('.image-preview').attr('src', e.target.result);
+                }
+        
+                reader.readAsDataURL(this.files[0]);
+            }
+        
+        });
+
+        
+
+
 
     CKEDITOR.config.language = "{{ app()->getLocale() }}";
 
@@ -233,6 +222,8 @@
     $('.select2').select2({
         'width': '100%',
     });
+
+
 
 </script>
 
