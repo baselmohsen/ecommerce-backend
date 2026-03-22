@@ -228,6 +228,56 @@ n.show();
 </script>
 
 @stack('scripts')
+<script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+<script>
+$(document).ready(function() {
 
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('da1226487dc66f36ecb3', {
+        cluster: 'ap2',
+        authEndpoint: '/broadcasting/auth',
+        auth: {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }
+    });
+
+    let userId = {{ auth()->id() }};
+    var channel = pusher.subscribe('private-App.Models.User.' + userId);
+
+    channel.bind('Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', function(notification) {
+        let order = notification.data ?? notification;
+
+        let table = document.getElementById('orders-table-body');
+        if (!table) return;
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+         let row = `
+        <tr style="background:#e6fffa">
+            <td>${order.id}</td>
+            <td>${order.first_name ?? 'Guest'} ${order.last_name ?? ''}</td>
+            <td>$${order.total}</td>
+            <td>${order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'New'}</td>
+            <td>${order.created_at ?? 'Just now'}</td>
+            <td>
+                <a href="${order.view_url}" class="btn btn-info btn-sm">view</a>
+                <a href="${order.edit_url}" class="btn btn-warning btn-sm">edit</a>
+                <form action="${order.delete_url}" method="post" style="display:inline-block">
+                    <input type="hidden" name="_token" value="${csrfToken}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger delete btn-sm">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    `;
+        table.insertAdjacentHTML('afterbegin', row);
+    });
+
+});
+</script>
 </body>
 </html>
