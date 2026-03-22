@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+
     public function show($slug){
         return view('front.products.show',[
             'product'=>Product::with('category')->where('slug',$slug)->firstOrFail(),

@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as FrontProductController ;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +32,19 @@ Route::group(
 
 
     
-Route::get('/', function () {
-    return view('welcome');
-});
+
+        Route::get('/', [HomeController::class,'index'])->name('home');
+  
+
+
+
      Route::get('cart', [CartController::class,'index']);
      Route::post('cart', [CartController::class,'store'])->name('cart');
+     
+     Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
+     Route::get('checkout', [CheckoutController::class,'index']);
+     Route::post('checkout', [CheckoutController::class,'store'])->name('checkout')->middleware('auth');;
+
      Route::get('product/{slug}', [FrontProductController::class,'show'])->name('product.show');
 
 
@@ -45,9 +57,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home')->middleware('auth');
+// Route::get('/home', function () {
+//     return view('home');
+// })->name('home')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -55,13 +67,13 @@ Route::get('/dashboard', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function() {
 
-    // Route::post('user', [UserController::class,'store'])->name('users.store');
-    // Route::get('user', [UserController::class,'create'])->name('users.create');
-
+ Route::get('/admin/notifications', [NotificationController::class, 'index'])->name('notifications');
+  Route::get('notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
     
     Route::resource('users', UserController::class);
+    Route::resource('orders', OrderController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
 });

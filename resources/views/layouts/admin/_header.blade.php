@@ -23,38 +23,43 @@
                 </div>
             </li>
         {{--notification--}}
-        <li class="dropdown" id="notifications">
-            <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications" style="position:relative;">
-                <i class="fa fa-bell-o fa-lg"></i>
-                <span class="badge badge-danger" id="unread-notifications-count" style="position:absolute; top: 10px; right: 5px;">10</span>
-            </a>
+       <li class="dropdown" id="notifications">
+    <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications" style="position:relative;">
+        <i class="fa fa-bell-o fa-lg"></i>
+        <span class="badge badge-danger" id="unread-notifications-count" style="position:absolute; top: 10px; right: 5px;">
+            {{ auth()->user()->unreadNotifications->count() }}
+        </span>
+    </a>
 
-            <ul class="app-notification dropdown-menu dropdown-menu-right">
+    <ul class="app-notification dropdown-menu dropdown-menu-right">
+        <div class="app-notification__content">
+            @forelse(auth()->user()->unreadNotifications as $notification)
+                <li>
+                    <a class="app-notification__item d-flex align-items-start" href="{{ route('admin.orders.show', $notification->data['order_id']) }}">
+                        <span class="app-notification__icon me-2">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-address-book fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </span>
+                        <div>
+                            <p class="app-notification__message">{{ $notification->data['message'] }}</p>
+                            <p class="app-notification__meta">{{ $notification->created_at->diffForHumans() }}</p>
+                        </div>
+                    </a>
+                </li>
+            @empty
+                <li>
+                    <span class="dropdown-item">No new notifications</span>
+                </li>
+            @endforelse
+        </div>
 
-                <div class="app-notification__content">
-
-
-                    <li>
-                        <a class="app-notification__item" href="#">
-                                <span class="app-notification__icon">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                        <i class="fa fa-address-book fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </span>
-                            <div>
-                                <p class="app-notification__message">Notification title</p>
-                                <p class="app-notification__meta">2 mins ago</p>
-                            </div>
-                        </a>
-                    </li>
-
-                </div>
-
-                <li class="app-notification__footer"><a href="#">@lang('site.all') @lang('notifications.notifications')</a></li>
-            </ul>
+        <li class="app-notification__footer">
+            <a href="{{ route('admin.notifications') }}">View all notifications</a>
         </li>
-
+    </ul>
+</li>
        
         {{--user menu--}}
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
