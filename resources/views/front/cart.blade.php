@@ -2,118 +2,169 @@
 
 @section('content')
 
+<main class="main">
 
-
-
-   <!-- Shopping Cart -->
-    <div class="shopping-cart section">
+    <!-- Page Header -->
+    <div class="page-header text-center" style="background-image: url('{{ asset('assets/images/page-header-bg.jpg') }}')">
         <div class="container">
-            <div class="cart-list-head">
-                <!-- Cart List Title -->
-                <div class="cart-list-title">
-                    <div class="row">
-                        <div class="col-lg-1 col-md-1 col-12">
-
-                        </div>
-                        <div class="col-lg-4 col-md-3 col-12">
-                            <p>Product Name</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Quantity</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Subtotal</p>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Discount</p>
-                        </div>
-                        <div class="col-lg-1 col-md-2 col-12">
-                            <p>Remove</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Cart List Title -->
-                <!-- Cart Single List list -->
-
-            @foreach($cartItems as $item)
-        <div class="cart-single-list">
-            <div class="row align-items-center">
-                <div class="col-lg-1 col-md-1 col-12">
-                    <a href="{{ route('product.show', $item->product->id) }}">
-                        <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-3 col-12">
-                    <h5 class="product-name">
-                        <a href="{{ route('product.show', $item->product->id) }}">
-                            {{ $item->product->name }}
-                        </a>
-                    </h5>
-                    <p class="product-des">
-                        <span><em>Type:</em> {{ $item->product->type ?? '-' }}</span>
-                        <span><em>Color:</em> {{ $item->product->color ?? '-' }}</span>
-                    </p>
-                </div>
-                <div class="col-lg-2 col-md-2 col-12">
-                    <div class="count-input">
-                        <select class="form-control">
-                            @for($i=1; $i<=10; $i++)
-                                <option value="{{ $i }}" @if($i==$item->quantity) selected @endif>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-12">
-                    <p>${{ $item->product->sale_price }}</p>
-                </div>
-                <div class="col-lg-2 col-md-2 col-12">
-                    <p>${{ $item->quantity * $item->product->sale_price }}</p>
-                </div>
-                <div class="col-lg-1 col-md-2 col-12">
-                    <a class="remove-item" href="#">
-                        <i class="lni lni-close"></i>
-                    </a>
-                </div>
-            </div>
+            <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
         </div>
-        @endforeach
-                <!-- End Single List list -->
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <!-- Total Amount -->
-                    <div class="total-amount">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-6 col-12">
-                                <div class="left">
-                                    <div class="coupon">
-                                        <form action="#" target="_blank">
-                                            <input name="Coupon" placeholder="Enter Your Coupon">
-                                            <div class="button">
-                                                <button class="btn">Apply Coupon</button>
+    </div>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active">Shopping Cart</li>
+            </ol>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <div class="cart">
+            <div class="container">
+                <div class="row">
+
+                    <!-- LEFT -->
+                    <div class="col-lg-9">
+                        <table class="table table-cart table-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @php $total = 0; @endphp
+
+                                @foreach($cartItems as $item)
+                                    @php
+                                        $subtotal = $item->quantity * $item->product->sale_price;
+                                        $total += $subtotal;
+                                    @endphp
+
+                                    <tr>
+                                        <td class="product-col">
+                                            <div class="product">
+                                                <figure class="product-media">
+                                                    <a href="{{ route('product.show', $item->product->id) }}">
+                                                        <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}">
+                                                    </a>
+                                                </figure>
+
+                                                <h3 class="product-title">
+                                                    <a href="{{ route('product.show', $item->product->id) }}">
+                                                        {{ $item->product->name }}
+                                                    </a>
+                                                </h3>
                                             </div>
-                                        </form>
+                                        </td>
+
+                                        <td class="price-col">
+                                            ${{ $item->product->sale_price }}
+                                        </td>
+
+                                        <td class="quantity-col">
+                                            <input type="number"
+                                                   class="form-control"
+                                                   value="{{ $item->quantity }}"
+                                                   min="1">
+                                        </td>
+
+                                        <td class="total-col">
+                                            ${{ $subtotal }}
+                                        </td>
+
+                                        <td class="remove-col">
+                                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn-remove">
+                                                    <i class="icon-close"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+
+                        <!-- Bottom -->
+                        <div class="cart-bottom">
+                            <div class="cart-discount">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="coupon code">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary-2" type="submit">
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <div class="right">
-                                    <ul>
-                                        <li>Cart total<span>  ${{$total}}</span></li>
-                             
-                                    </ul>
-                                    <div class="button">
-                                        <a href="{{route('checkout')}}" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <a href="#" class="btn btn-outline-dark-2">
+                                <span>UPDATE CART</span>
+                            </a>
                         </div>
                     </div>
-                    <!--/ End Total Amount -->
+
+                    <!-- RIGHT -->
+                   <aside class="col-lg-3">
+    <div class="summary">
+        <h3 class="summary-title">Your Order</h3>
+
+        <table class="table table-summary">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($cartItems as $item)
+                    <tr>
+                        <td>
+                            {{ $item->product->name }}
+                            <br>
+                            <small>{{ $item->quantity }} x ${{ $item->product->sale_price }}</small>
+                        </td>
+                        <td>${{ $item->quantity * $item->product->sale_price }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="2">No items in cart</td>
+                    </tr>
+                @endforelse
+
+               
+
+                <tr class="summary-total">
+                    <td>Total:</td>
+                    <td>${{ $total }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Payment Options -->
+        
+
+   
+</aside>
                 </div>
             </div>
         </div>
     </div>
-    <!--/ End Shopping Cart -->
+
+</main>
+
 @endsection
+

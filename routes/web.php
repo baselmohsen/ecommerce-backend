@@ -40,7 +40,7 @@ Route::group(
 
      Route::get('cart', [CartController::class,'index']);
      Route::post('cart', [CartController::class,'store'])->name('cart');
-     
+     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
      Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
      Route::get('checkout', [CheckoutController::class,'index']);
      Route::post('checkout', [CheckoutController::class,'store'])->name('checkout')->middleware('auth');;
@@ -57,9 +57,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-// Route::get('/home', function () {
-//     return view('home');
-// })->name('home')->middleware('auth');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');

@@ -1,5 +1,9 @@
 @include('layouts.front.header')
 
-@yield('content')
 
+    <div class="page-wrapper">
+       @yield('content')
+    </div><!-- End .page-wrapper -->
+        
+        
 @include('layouts.front.footer')

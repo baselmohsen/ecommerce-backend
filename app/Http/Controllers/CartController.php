@@ -44,7 +44,11 @@ class CartController extends Controller
             return redirect()->back()->with('success',"product {$product->name} added successfully to cart");
     }
 
-
+        public function remove($id)
+        {
+            Cart::findOrFail($id)->delete();
+            return back()->with('success', 'Item removed from cart.');
+        }
     // public function getCartId(){
     //     $id=Cookie::get('cart_id');
     //     if(!$id){
