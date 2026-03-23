@@ -60,7 +60,38 @@
                                     <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                     <li><a href="about.html">About Us</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="#signin-modal" data-toggle="modal"><i class="icon-user"></i>Login</a></li>
+                               <!-- User Dropdown -->
+                                @if(Auth::check())
+                                    <div class="dropdown user-dropdown">
+                                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                            <i class="icon-user"></i>
+                                            <span>{{ Auth::user()->name }}</span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                    
+                                            <div class="dropdown-user-links">
+                                                <a href="{{route('profile')}}" class="dropdown-item">
+                                                    <i class="icon-user"></i> Profile
+                                                </a>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item btn-logout">
+                                                        <i class="icon-logout"></i> Logout
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="dropdown user-dropdown">
+                                        <a href="#signin-modal" data-toggle="modal" class="dropdown-toggle">
+                                            <i class="icon-user"></i> Login
+                                        </a>
+                                    </div>
+                                @endif
+
+
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->

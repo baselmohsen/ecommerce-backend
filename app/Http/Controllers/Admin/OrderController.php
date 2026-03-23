@@ -4,7 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Notifications\OrderDoneNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification  ;
 
 class OrderController extends Controller
 {
@@ -50,12 +52,18 @@ class OrderController extends Controller
                 'status' => 'required|in:new,processing,on_delivery,completed',
                 'notes'  => 'nullable|string',
             ]);
-             //dd( $request->all());
+
+         
         $order->update([
             'status' => $request->status,
             'notes'  => $request->notes,
         ]);
-        // dd($order);
+
+        //    if ($order->status === 'completed') {
+        //             $order->user->notify(new OrderDoneNotification($order));
+        //             //Notification::route('mail','baselmohsen585@gmail.com')->notify(new OrderDoneNotification($order));
+        //     }
+            
         return redirect()->route('admin.orders.index')->with('success', 'Order updated successfully.');
     }
     // حذف طلب

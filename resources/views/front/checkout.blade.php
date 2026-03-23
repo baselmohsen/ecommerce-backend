@@ -89,12 +89,7 @@
                                            value="{{ old('city') }}" required>
                                 </div>
 
-                                <div class="col-sm-6">
-                                    <input type="text" name="country"
-                                           class="form-control"
-                                           placeholder="Country"
-                                           value="{{ old('country') }}" required>
-                                </div>
+                           
                             </div>
 
                             <textarea name="notes"

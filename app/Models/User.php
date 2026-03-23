@@ -24,6 +24,8 @@ class User extends Authenticatable
         'password',
         'email_verified_at',
         'type',
+        'provider',
+        'provider_id',
     ];
 
     /**
@@ -56,4 +58,9 @@ class User extends Authenticatable
                 ])->exists();
 
         }
+
+        public function orders()
+            {
+                return $this->hasMany(\App\Models\Order::class);
+            }
 }

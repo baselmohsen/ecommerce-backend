@@ -1,61 +1,55 @@
-@extends('layouts.front2.app')
+@extends('layouts.front.app')
+
 @section('content')
-    
-<div class="soon">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9 col-lg-8">
-                    <div class="soon-content text-center">
-                        <div class="soon-content-wrapper">
-                            <img src="assets/images/logo-icon.png" alt="Logo" class="soon-logo mx-auto">
-                            <h1 class="soon-title">Coming Soon</h1><!-- End .soon-title -->
-                            <div class="coming-countdown countdown-separator"></div><!-- End .coming-countdown -->
-                            <hr class="mt-2 mb-3 mt-md-3">
-                            <p>We are currently working on an awesome new site. Stay tuned for more information.
-                                Subscribe to our newsletter to stay updated on our progress.</p>
-                            <form action="#">
-                                <div class="input-group mb-5">
-                                    <input type="email" class="form-control bg-transparent" placeholder="Enter your Email Address" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary-2" type="submit">
-                                            <span>SUBSCRIBE</span>
-                                            <i class="icon-long-arrow-right"></i>
-                                        </button>
-                                    </div>
+
+<div class="soon d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="soon-content text-center">
+                    <div class="soon-content-wrapper">
+
+                        <img src="{{ asset('assets/images/logo-icon.png') }}" alt="Logo" class="soon-logo mx-auto mb-3">
+
+                        <h1 class="soon-title text-success">🎉 Order Placed Successfully!</h1>
+
+                        <hr class="mt-3 mb-3">
+
+                        <p>
+                            Thank you for your purchase. Your order has been received and is being processed.
+                        </p>
+
+                        {{-- ORDER INFO --}}
+                        @if(session('order'))
+                            <div class="card mt-3 mb-3 text-center">
+                                <div class="card-body">
+                                    <p><strong>Order ID:</strong> #{{ session('order')->id }}</p>
+                                    <p><strong>Total:</strong> ${{ session('order')->total }}</p>
+                                    <p><strong>Status:</strong> 
+                                        <span class="badge badge-success">
+                                            {{ ucfirst(session('order')->status) }}
+                                        </span>
+                                    </p>
                                 </div>
-                            </form>
-                            <div class="social-icons justify-content-center mb-0">
-                                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-                            </div><!-- End .soial-icons -->
-                        </div><!-- End .soon-content-wrapper -->
-                    </div><!-- End .soon-content -->
-                </div><!-- End .col-md-9 col-lg-8 -->
-            </div><!-- End .row -->
-        </div><!-- End .container -->
-        <div class="soon-bg bg-image" style="background-image: url(assets/images/backgrounds/soon-bg.jpg)"></div>
-        <!-- End .soon-bg bg-image -->
-    </div><!-- End .soon -->
+                            </div>
+                        @endif
+
+                        {{-- ACTION BUTTONS --}}
+                        <div class="mt-4 d-flex justify-content-center gap-2">
+                            <a href="{{ route('profile') }}" class="btn btn-primary mr-2">
+                                View My Orders
+                            </a>
+
+                            <a href="{{ route('home') }}" class="btn btn-outline-primary-2">
+                                Continue Shopping
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
-
-@push('scripts')
-     <script>
-    $(function() {
-        "use strict";
-        if ($.fn.countdown) {
-            $('.coming-countdown').countdown({
-                until: new Date(2021, 7, 20), // 7th month = August / Months 0 - 11 (January  - December)
-                format: 'DHMS',
-                padZeroes: true
-            });
-
-            // Pause
-            // $('.coming-countdown').countdown('pause');
-        }
-    });
-    </script>
-@endpush

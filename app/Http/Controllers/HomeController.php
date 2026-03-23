@@ -18,6 +18,14 @@ class HomeController extends Controller
                 return view('front.home', compact('products', 'categories'));
             }
 
-   
+        public function profile()
+         {
+            $user = auth()->user();
+
+            // load orders WITH items + product
+                $orders = $user->orders()->with('items')->latest()->get();
+
+                return view('front.profile.index', compact('user', 'orders'));
+            }
 
 }

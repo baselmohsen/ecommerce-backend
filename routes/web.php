@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
@@ -38,6 +39,8 @@ Route::group(
 
 
 
+     Route::get('profile', [HomeController::class,'profile'])->name('profile')->middleware('auth');
+
      Route::get('cart', [CartController::class,'index']);
      Route::post('cart', [CartController::class,'store'])->name('cart');
      Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
@@ -47,12 +50,15 @@ Route::group(
 
      Route::get('product/{slug}', [FrontProductController::class,'show'])->name('product.show');
 
+    Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.socilaite.redirect');
+    Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.socilaite.callback');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+    
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 
