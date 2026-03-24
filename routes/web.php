@@ -12,6 +12,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as FrontProductController ;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,14 +42,22 @@ Route::group(
 
      Route::get('profile', [HomeController::class,'profile'])->name('profile')->middleware('auth');
 
+     Route::get('wishlist', [WishlistController::class,'index']);
+     Route::post('wishlist', [WishlistController::class,'store'])->name('wishlist');
+     Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+
      Route::get('cart', [CartController::class,'index']);
      Route::post('cart', [CartController::class,'store'])->name('cart');
      Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+
      Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
      Route::get('checkout', [CheckoutController::class,'index']);
      Route::post('checkout', [CheckoutController::class,'store'])->name('checkout')->middleware('auth');;
 
      Route::get('product/{slug}', [FrontProductController::class,'show'])->name('product.show');
+     Route::get('category-products/{id}', [FrontProductController::class,'categoryPproducts'])->name('category.products');
 
     Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.socilaite.redirect');
     Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.socilaite.callback');

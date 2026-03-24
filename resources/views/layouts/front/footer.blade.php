@@ -237,10 +237,51 @@
 <script src="{{ asset('assets/js/jquery.plugin.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
-
+<!-- before closing body -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/demos/demo-2.js') }}"></script>
+
+            @if(session('success'))
+            <script>
+            Swal.fire({
+                toast: true,                  // Makes it a toast (small rectangle)
+                position: 'top-end',          // Top-right corner
+                icon: 'success',              // Icon
+                title: "{{ session('success') }}", // Message
+                showConfirmButton: false,     // No OK button
+                timer: 3000,                  // Auto close after 2.5 seconds
+                timerProgressBar: true,       // Show a progress bar
+                background: '#28a745',        // Optional: green background
+                color: '#fff',                // Text color white
+            });
+            </script>
+            @endif
+
+            @if(session('error'))
+            <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: "{{ session('error') }}",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                background: '#dc3545',        // Optional: red background
+                color: '#fff',
+            });
+            </script>
+            @endif
+
+
+
+
+
+
+
+
 
 @stack('scripts')
 </body>

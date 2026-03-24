@@ -34,4 +34,16 @@ class Product extends Model
                 $product->slug = Str::slug($product->name);
             });
         }
+
+    public function getImageUrlAttribute()
+        {
+            if ($this->image) {
+                return asset('storage/' . $this->image);
+            }
+      
+            return asset('assets/images/default-product.jpg');
+        }
+
+
+
 }

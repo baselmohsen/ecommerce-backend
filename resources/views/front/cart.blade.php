@@ -54,7 +54,7 @@
                                             <div class="product">
                                                 <figure class="product-media">
                                                     <a href="{{ route('product.show', $item->product->id) }}">
-                                                        <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}">
+                                                        <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}">
                                                     </a>
                                                 </figure>
 

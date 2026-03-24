@@ -24,12 +24,15 @@
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="{{ asset('assets/images/icons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
+        <!-- head section -->
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
        @stack('styles')
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    
 </head>
 
 <body>
@@ -56,8 +59,8 @@
                             <li>
                                 <a href="#">Links</a>
                                 <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: 01142456881</a></li>
+                                    <li><a href="{{route('wishlist')}}"><i class="icon-heart-o"></i>Wishlist <span>{{"($wishlistCount)"}}</span></a></li>
                                     <li><a href="about.html">About Us</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                <!-- User Dropdown -->
@@ -108,7 +111,8 @@
                         </button>
 
                         <a href="index.html" class="logo">
-                            <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25">
+                                {{-- {{ env('APP_NAME') }}    --}}
+                            {{-- <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25"> --}}
                         </a>
 
                         <nav class="main-nav">
@@ -134,9 +138,9 @@
                         </div><!-- End .header-search -->
                     
                        <x-cart-dropdown />
-                    
-                    
-                    </div><!-- End .header-right -->
+                                        
+           
+                </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->
         </header><!-- End .header -->

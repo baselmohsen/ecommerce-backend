@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Yoeunes\Toastr\Facades\Toastr;
 
 use App\Models\Cart;
 use App\Models\Product;
@@ -40,9 +41,11 @@ class CartController extends Controller
                         'user_id '=> Auth::id(),
                         ]);
                     }
-
-            return redirect()->back()->with('success',"product {$product->name} added successfully to cart");
-    }
+                        
+                   return redirect()->back()->with('success', "Product '{$product->name}' added to cart!");
+}
+          
+  
 
         public function remove($id)
         {

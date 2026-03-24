@@ -7,91 +7,46 @@
     <div class="mb-3 mb-lg-5"></div>
 
     <div class="banner-group">
-    <div class="container">
+       <div class="container">
     <div class="row">
 
-        {{-- FIRST BIG CATEGORY --}}
-        @if($categories->count() > 0)
-        <div class="col-md-12 col-lg-5">
-            <div class="banner banner-large banner-overlay banner-overlay-light">
-                <a href="#">
-                            <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="Banner">
-                </a>
-                <div class="banner-content banner-content-top">
-                    <h4 class="banner-subtitle">Category</h4>
-                    <h3 class="banner-title">{{ $categories[0]->name }}</h3>
-                    <div class="banner-text">
-                        {{ $categories[0]->products->count() }} Products
+        
+      <div class="mb-3 mb-lg-5"></div>
+      
+      <div class="banner-group">
+            <div class="heading heading-center mb-3">
+                        <h2 class="title">Our Categories</h2>
                     </div>
-                    <a href="#" class="btn btn-outline-gray banner-link">
-                        Shop Now <i class="icon-long-arrow-right"></i>
-                    </a>
+            <div class="container">
+                <div class="row">
+
+                    @forelse($categories as $category)
+                        <div class="col-md-6 col-lg-3">
+                            <div class="banner banner-overlay">
+                                <a href="{{ route('category.products', $category->id) }}">
+                                    <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="{{ $category->name }}">
+                                </a>
+                                <div class="banner-content banner-content-bottom">
+                                    <h4 class="banner-subtitle text-grey">Top Category</h4>
+                                    <h3 class="banner-title text-white">{{ $category->name }}</h3>
+                                    <div class="banner-text text-white">
+                                        {{ $category->products->count() }} Items
+                                    </div>
+                                    <a href="{{ route('category.products', $category->id) }}" class="btn btn-outline-white banner-link">
+                                        Discover Now <i class="icon-long-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12 text-center py-4">
+                            <p>No categories found.</p>
+                        </div>
+                    @endforelse
+
                 </div>
             </div>
         </div>
-        @endif
-
-
-        {{-- SECOND CATEGORY --}}
-        @if($categories->count() > 1)
-        <div class="col-md-6 col-lg-3">
-            <div class="banner banner-overlay">
-                <a href="#">
-                            <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="Banner">
-                </a>
-                <div class="banner-content banner-content-bottom">
-                    <h4 class="banner-subtitle text-grey">Top Category</h4>
-                    <h3 class="banner-title text-white">{{ $categories[1]->name }}</h3>
-                    <div class="banner-text text-white">
-                        {{ $categories[1]->products->count() }} Items
-                    </div>
-                    <a href="#" class="btn btn-outline-white banner-link">
-                        Discover Now <i class="icon-long-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        @endif
-
-
-        {{-- THIRD + FOURTH --}}
-        <div class="col-md-6 col-lg-4">
-
-            @if($categories->count() > 2)
-            <div class="banner banner-overlay">
-                <a href="#">
-                            <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="Banner">
-                </a>
-                <div class="banner-content banner-content-top">
-                    <h4 class="banner-subtitle text-grey">Explore</h4>
-                    <h3 class="banner-title text-white">{{ $categories[2]->name }}</h3>
-                    <a href="#" class="btn btn-outline-white banner-link">
-                        Discover Now <i class="icon-long-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            @endif
-
-            @if($categories->count() > 3)
-            <div class="banner banner-overlay banner-overlay-light">
-                <a href="#">
-                            <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="Banner">
-                </a>
-                <div class="banner-content banner-content-top">
-                    <h4 class="banner-subtitle">Popular</h4>
-                    <h3 class="banner-title">{{ $categories[3]->name }}</h3>
-                    <div class="banner-text">
-                        {{ $categories[3]->products->count() }} Products
-                    </div>
-                    <a href="#" class="btn btn-outline-gray banner-link">
-                        Shop Now <i class="icon-long-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            @endif
-
-        </div>
-
     </div>
 </div>
     </div>
@@ -100,7 +55,7 @@
 
     <div class="container">
         <div class="heading heading-center mb-3">
-            <h2 class="title">Top Selling Products</h2>
+            <h2 class="title">The Latest Products</h2>
         </div>
 
          <div class="tab-content">
@@ -123,9 +78,20 @@
                                     @endif
                                 </a>
 
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
-                                </div><!-- End .product-action-vertical -->
+                                                                    <!-- Hidden form for wishlist -->
+                                    <form id="add_to_wishlist_{{ $product->id }}" action="{{ route('wishlist') }}" method="POST" style="display: none;">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    </form>
+
+                                    <!-- Wishlist button -->
+                                    <div class="product-action-vertical">
+                                        <a href="javascript:;" 
+                                        onclick="document.getElementById('add_to_wishlist_{{ $product->id }}').submit()" 
+                                        class="btn-product-icon btn-wishlist">
+                                            <span>Add to Wishlist</span>
+                                        </a>
+                                    </div>
                             </figure><!-- End .product-media -->
 
                             <div class="product-body">

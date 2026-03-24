@@ -27,7 +27,7 @@ class OrderDoneNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->subject('Order Update #' . $this->order->id)
-                    ->greeting('Hello ' . $notifiable->name)
+                    ->greeting('Hello ' . $notifiable->name )
                     ->line('Your order status has been updated.')
                     ->line('Order ID: #' . $this->order->id)
                     ->line('New Status: ' . ucfirst($this->order->status))

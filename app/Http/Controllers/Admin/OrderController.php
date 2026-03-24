@@ -59,10 +59,10 @@ class OrderController extends Controller
             'notes'  => $request->notes,
         ]);
 
-        //    if ($order->status === 'completed') {
-        //             $order->user->notify(new OrderDoneNotification($order));
-        //             //Notification::route('mail','baselmohsen585@gmail.com')->notify(new OrderDoneNotification($order));
-        //     }
+           if ($order->status === 'completed') {
+                    $order->user->notify(new OrderDoneNotification($order));
+                    //Notification::route('mail','baselmohsen585@gmail.com')->notify(new OrderDoneNotification($order));
+            }
             
         return redirect()->route('admin.orders.index')->with('success', 'Order updated successfully.');
     }
