@@ -70,14 +70,79 @@
   "deleted successfully": "تم حذف البيانات بنجاح",
   "no data found": "لا توجد بيانات",
   "no records": "للاسف لا يوجد اي سجلات",
-  "quantity": "الكميه",
-  "total": "المجموع",
+
   "purchase price": "سعر الشراء",
-  "price": "السعر",
   "sale price": "سعر البيع",
   "stock": "المخزن",
   "profit percent": "المكسب",
-  "created at": "تم اضافته"
+  "created at": "تم اضافته",
 
-  
+  "shopping cart": "سلة التسوق",
+  "shop": "المتجر",
+
+  "price": "السعر",
+  "quantity": "الكمية",
+  "total": "الإجمالي",
+  "coupon code": "كود الخصم",
+  "update cart": "تحديث السلة",
+  "your order": "طلبك",
+  "empty cart": "لا يوجد منتجات",
+  "checkout": "الدفع",
+
+  "billing details": "بيانات الفاتورة",
+
+  "city": "المدينة",
+  "order notes": "ملاحظات الطلب",
+  "cash on delivery": "الدفع عند الاستلام",
+  "bank transfer": "تحويل بنكي",
+  "place order": "إتمام الطلب",
+  "back to cart": "العودة للسلة",
+
+  "view cart": "عرض السلة",
+  "remove product": "حذف المنتج",
+
+  "links": "روابط",
+  "wishlist": "المفضلة",
+  "about us": "من نحن",
+  "contact us": "اتصل بنا",
+  "login": "تسجيل الدخول",
+  "profile": "الملف الشخصي",
+
+  "search in": "ابحث عن المنتج",
+  "follow us": "تابعنا",
+  "The best pharmacy for all your needs": "أفضل صيدلية لجميع احتياجاتك",
+
+  "useful links": "روابط مهمة",
+  "about": "من نحن",
+  "how to shop": "كيفية الشراء",
+  "faq": "الأسئلة الشائعة",
+  "contact": "اتصل بنا",
+
+  "customer service": "خدمة العملاء",
+  "payment methods": "طرق الدفع",
+  "money back": "ضمان استرجاع الأموال",
+  "returns": "الاسترجاع",
+  "shipping": "الشحن",
+  "terms": "الشروط والأحكام",
+  "privacy": "سياسة الخصوصية",
+
+  "my account": "حسابي",
+  "sign in": "تسجيل الدخول",
+
+  "track order": "تتبع الطلب",
+  "help": "مساعدة",
+
+  "copyright": "© جميع الحقوق محفوظة",
+
+  "register": "إنشاء حساب",
+
+  "search placeholder": "ابحث...",
+
+  "remember me": "تذكرني",
+  "forgot password": "نسيت كلمة المرور؟",
+  "or login with": "أو سجل باستخدام",
+  "login google": "تسجيل عبر جوجل",
+  "login facebook": "تسجيل عبر فيسبوك",
+
+  "sign up": "إنشاء حساب"
 }

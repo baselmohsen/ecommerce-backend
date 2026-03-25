@@ -7,7 +7,9 @@
     <!-- Page Header -->
     <div class="page-header text-center" style="background-image: url('{{ asset('assets/images/page-header-bg.jpg') }}')">
         <div class="container">
-            <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+            <h1 class="page-title">
+                {{ __('shopping cart') }} <span>{{ __('shop') }}</span>
+            </h1>
         </div>
     </div>
 
@@ -15,9 +17,15 @@
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                <li class="breadcrumb-item active">Shopping Cart</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">{{ __('home') }}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">{{ __('shop') }}</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{ __('shopping cart') }}
+                </li>
             </ol>
         </div>
     </nav>
@@ -32,23 +40,18 @@
                         <table class="table table-cart table-mobile">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th>{{ __('product') }}</th>
+                                    <th>{{ __('price') }}</th>
+                                    <th>{{ __('quantity') }}</th>
+                                    <th>{{ __('total') }}</th>
                                     <th></th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @php $total = 0; @endphp
-
+                         
                                 @foreach($cartItems as $item)
-                                    @php
-                                        $subtotal = $item->quantity * $item->product->sale_price;
-                                        $total += $subtotal;
-                                    @endphp
-
+                            
                                     <tr>
                                         <td class="product-col">
                                             <div class="product">
@@ -70,25 +73,22 @@
                                             ${{ $item->product->sale_price }}
                                         </td>
 
-                                        <td class="quantity-col">
-                                            <input type="number"
-                                                   class="form-control"
-                                                   value="{{ $item->quantity }}"
-                                                   min="1">
-                                        </td>
-
+                                      
+	                                        <td class="quantity-col">
+                                                <div class="cart-product-quantity">
+                                                    <input type="number"  class="form-control btn-quantity" data-id="{{$item->id}}"  value="{{ $item->quantity }}" min="1" max="10" step="1" data-decimals="0" required>
+                                                </div>                              
+                                            </td>
                                         <td class="total-col">
-                                            ${{ $subtotal }}
+                                            ${{ $item->total }}
                                         </td>
 
                                         <td class="remove-col">
-                                            <form action="{{ route('cart.remove', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn-remove">
+                                  
+
+                                             <button class="btn-remove btn-remove-cart" data-id="{{$item->id}}">
                                                     <i class="icon-close"></i>
                                                 </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,7 +101,7 @@
                             <div class="cart-discount">
                                 <form>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="coupon code">
+                                        <input type="text" class="form-control" placeholder="{{ __('coupon code') }}">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary-2" type="submit">
                                                 <i class="icon-long-arrow-right"></i>
@@ -112,53 +112,12 @@
                             </div>
 
                             <a href="#" class="btn btn-outline-dark-2">
-                                <span>UPDATE CART</span>
+                                <span>{{ __('update cart') }}</span>
                             </a>
                         </div>
                     </div>
 
-                    <!-- RIGHT -->
-                   <aside class="col-lg-3">
-    <div class="summary">
-        <h3 class="summary-title">Your Order</h3>
-
-        <table class="table table-summary">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($cartItems as $item)
-                    <tr>
-                        <td>
-                            {{ $item->product->name }}
-                            <br>
-                            <small>{{ $item->quantity }} x ${{ $item->product->sale_price }}</small>
-                        </td>
-                        <td>${{ $item->quantity * $item->product->sale_price }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="2">No items in cart</td>
-                    </tr>
-                @endforelse
-
-               
-
-                <tr class="summary-total">
-                    <td>Total:</td>
-                    <td>${{ $total }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Payment Options -->
-        
-
-   
-</aside>
+                 
                 </div>
             </div>
         </div>
@@ -168,3 +127,78 @@
 
 @endsection
 
+
+@push('scripts')
+    <script>
+$('.btn-remove-cart').click(function () {
+    let id = $(this).data('id');
+    let row = $(this).closest('tr');
+
+    $.ajax({
+        url: "cart/remove/" + id,
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            _method: "DELETE"
+        },
+        success: function () {
+            row.remove(); 
+        },
+        error: function () {
+                        Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+        }
+    });
+});
+$(document).on('change', '.btn-quantity', function () {
+
+    let input = $(this);
+    let id = input.data('id');
+    let quantity = input.val();
+    let row = input.closest('tr');
+
+    $.ajax({
+        url: "/cart/update/" + id,
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            _method: "PUT",
+            quantity: quantity
+        },
+        success: function (res) {
+
+            // تحديث total بتاع الصف
+            row.find('.total-col').text('$' + res.item_total);
+
+            // // تحديث total الكلي
+            // $('.summary-total td:last').text('$' + res.cart_total);
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        },
+        error: function (res) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 2000,
+            });
+        }
+    });
+});
+    </script>
+@endpush

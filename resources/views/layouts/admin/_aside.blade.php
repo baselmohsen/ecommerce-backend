@@ -58,6 +58,15 @@
         </li>
 
    
+        <li>
+            <a class="app-menu__item {{ request()->is('*settings*') ? 'active' : '' }}" 
+               href="{{ route('admin.settings') }}">
+                <i class="app-menu__icon fa fa-settings"></i>
+                <span class="app-menu__label">{{ trans('settings') }}</span>
+            </a>
+        </li>
+
+   
 
     </ul>
 </aside>

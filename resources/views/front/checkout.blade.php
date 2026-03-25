@@ -8,7 +8,9 @@
     <div class="page-header text-center"
          style="background-image: url('{{ asset('assets/images/page-header-bg.jpg') }}')">
         <div class="container">
-            <h1 class="page-title">Checkout<span>Shop</span></h1>
+            <h1 class="page-title">
+                {{ __('checkout') }} <span>{{ __('shop') }}</span>
+            </h1>
         </div>
     </div>
 
@@ -16,8 +18,12 @@
     <nav class="breadcrumb-nav">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Checkout</li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">{{ __('home') }}</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{ __('checkout') }}
+                </li>
             </ol>
         </div>
     </nav>
@@ -46,77 +52,72 @@
 
                     <div class="row">
 
-                        <!-- LEFT: FORM -->
+                        <!-- LEFT -->
                         <div class="col-lg-9">
-                            <h2 class="checkout-title">Billing Details</h2>
+                            <h2 class="checkout-title">{{ __('billing details') }}</h2>
 
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input type="text" name="first_name"
                                            class="form-control"
-                                           placeholder="First Name"
+                                           placeholder="{{ __('first name') }}"
                                            value="{{ old('first_name') }}" required>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <input type="text" name="last_name"
                                            class="form-control"
-                                           placeholder="Last Name"
+                                           placeholder="{{ __('last name') }}"
                                            value="{{ old('last_name') }}" required>
                                 </div>
                             </div>
 
                             <input type="email" name="email"
                                    class="form-control"
-                                   placeholder="Email"
+                                   placeholder="{{ __('email') }}"
                                    value="{{ old('email') }}" required>
 
                             <input type="text" name="phone"
                                    class="form-control"
-                                   placeholder="Phone"
+                                   placeholder="{{ __('phone') }}"
                                    value="{{ old('phone') }}" required>
 
                             <input type="text" name="address"
                                    class="form-control"
-                                   placeholder="Address"
+                                   placeholder="{{ __('address') }}"
                                    value="{{ old('address') }}" required>
 
                             <div class="row">
                                 <div class="col-sm-6">
                                     <input type="text" name="city"
                                            class="form-control"
-                                           placeholder="City"
+                                           placeholder="{{ __('city') }}"
                                            value="{{ old('city') }}" required>
                                 </div>
-
-                           
                             </div>
 
                             <textarea name="notes"
                                       class="form-control"
                                       rows="4"
-                                      placeholder="Order Notes">{{ old('notes') }}</textarea>
+                                      placeholder="{{ __('order notes') }}">{{ old('notes') }}</textarea>
 
                         </div>
 
-                        <!-- RIGHT: ORDER SUMMARY -->
+                        <!-- RIGHT -->
                         <aside class="col-lg-3">
                             <div class="summary">
-                                <h3 class="summary-title">Your Order</h3>
+                                <h3 class="summary-title">{{ __('your order') }}</h3>
 
                                 <table class="table table-summary">
                                     <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Total</th>
+                                            <th>{{ __('product') }}</th>
+                                            <th>{{ __('total') }}</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                       
                                         @forelse($cartItems as $item)
-                                          
-
                                             <tr>
                                                 <td>
                                                     {{ $item->product->name }}
@@ -129,27 +130,25 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="2">No items in cart</td>
+                                                <td colspan="2">{{ __('empty cart') }}</td>
                                             </tr>
                                         @endforelse
 
-                                       
-
                                         <tr class="summary-total">
-                                            <td>Total:</td>
+                                            <td>{{ __('total') }}:</td>
                                             <td>${{ $total }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
 
                                 <!-- PAYMENT -->
-                                <div class="accordion-summary" id="accordion-payment">
+                                <div class="accordion-summary">
 
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="card-title">
                                                 <input type="radio" name="payment_method" value="cod" checked>
-                                                Cash on Delivery
+                                                {{ __('cash on delivery') }}
                                             </h2>
                                         </div>
                                     </div>
@@ -158,7 +157,7 @@
                                         <div class="card-header">
                                             <h2 class="card-title">
                                                 <input type="radio" name="payment_method" value="bank">
-                                                Bank Transfer
+                                                {{ __('bank transfer') }}
                                             </h2>
                                         </div>
                                     </div>
@@ -167,14 +166,14 @@
 
                                 <button type="submit"
                                         class="btn btn-outline-primary-2 btn-order btn-block">
-                                    Place Order
+                                    {{ __('place order') }}
                                 </button>
 
                             </div>
 
                             <a href="{{ route('cart') }}"
                                class="btn btn-outline-dark-2 btn-block mt-2">
-                                Back to Cart
+                                {{ __('back to cart') }}
                             </a>
 
                         </aside>

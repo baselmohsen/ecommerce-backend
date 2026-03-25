@@ -1,11 +1,12 @@
 <div class="dropdown cart-dropdown">
     <a href="{{ route('cart') }}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
         <i class="icon-shopping-cart"></i>
-        <span class="cart-count">{{ $cartItems->sum('quantity') }}</span>
+        <span class="cart-count">{{ $cartItems->count() }}</span>
     </a>
 
     <div class="dropdown-menu dropdown-menu-right">
         <div class="dropdown-cart-products">
+
             @forelse($cartItems as $item)
                 <div class="product">
                     <div class="product-cart-details">
@@ -19,32 +20,38 @@
                             <span class="cart-product-qty">{{ $item->quantity }}</span>
                             x ${{ $item->product->sale_price }}
                         </span>
-                    </div><!-- End .product-cart-details -->
+                    </div>
 
                     <figure class="product-image-container">
                         <a href="{{ route('product.show', $item->product->slug) }}" class="product-image">
                             <img src="{{ asset('storage/' . $item->product->image) }}" alt="{{ $item->product->name }}">
                         </a>
                     </figure>
-                    <a href="{{ route('cart.remove', $item->id) }}" class="btn-remove" title="Remove Product">
+
+                    <a href="{{ route('cart.remove', $item->id) }}" class="btn-remove" title="{{ __('remove product') }}">
                         <i class="icon-close"></i>
                     </a>
-                </div><!-- End .product -->
+                </div>
             @empty
-                <p class="text-center p-2">Your cart is empty</p>
+                <p class="text-center p-2">{{ __('empty cart') }}</p>
             @endforelse
-        </div><!-- End .cart-product -->
+
+        </div>
 
         <div class="dropdown-cart-total">
-            <span>Total</span>
+            <span>{{ __('total') }}</span>
             <span class="cart-total-price">${{ $total }}</span>
-        </div><!-- End .dropdown-cart-total -->
+        </div>
 
         <div class="dropdown-cart-action">
-            <a href="{{ route('cart') }}" class="btn btn-primary">View Cart</a>
-            <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2">
-                <span>Checkout</span><i class="icon-long-arrow-right"></i>
+            <a href="{{ route('cart') }}" class="btn btn-primary">
+                {{ __('view cart') }}
             </a>
-        </div><!-- End .dropdown-cart-action -->
-    </div><!-- End .dropdown-menu -->
-</div><!-- End .cart-dropdown -->
+
+            <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2">
+                <span>{{ __('checkout') }}</span>
+                <i class="icon-long-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

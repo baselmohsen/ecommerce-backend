@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>{{$setting->pharmacy_name}}</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -32,117 +32,175 @@
        @stack('styles')
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    
+    <style>
+        .logo-img {
+            max-height: 40px;   
+            width: auto;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
-        <header class="header">
-            <div class="header-top">
-                <div class="container">
-                    <div class="header-left">
-                       
+<header class="header">
 
-                        <div class="header-dropdown">
-                            <a href="#">Eng</a>
-                            <div class="header-menu">
-                                <ul>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">Spanish</a></li>
-                                </ul>
-                            </div><!-- End .header-menu -->
-                        </div><!-- End .header-dropdown -->
-                    </div><!-- End .header-left -->
+    <!-- ================= TOP HEADER ================= -->
+    <div class="header-top">
+        <div class="container d-flex justify-content-between">
 
-                    <div class="header-right">
-                        <ul class="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Call: 01142456881</a></li>
-                                    <li><a href="{{route('wishlist')}}"><i class="icon-heart-o"></i>Wishlist <span>{{"($wishlistCount)"}}</span></a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                               <!-- User Dropdown -->
-                                @if(Auth::check())
-                                    <div class="dropdown user-dropdown">
-                                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                            <i class="icon-user"></i>
-                                            <span>{{ Auth::user()->name }}</span>
-                                        </a>
+            <!-- LEFT -->
+            <div class="header-left d-flex align-items-center">
 
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                    
-                                            <div class="dropdown-user-links">
-                                                <a href="{{route('profile')}}" class="dropdown-item">
-                                                    <i class="icon-user"></i> Profile
-                                                </a>
-                                                <form method="POST" action="{{ route('logout') }}">
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item btn-logout">
-                                                        <i class="icon-logout"></i> Logout
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="dropdown user-dropdown">
-                                        <a href="#signin-modal" data-toggle="modal" class="dropdown-toggle">
-                                            <i class="icon-user"></i> Login
-                                        </a>
-                                    </div>
-                                @endif
+                <!-- Language -->
+                <div class="header-dropdown mr-3">
+                    <a href="#" data-toggle="dropdown">
+                        {{ strtoupper(app()->getLocale()) }}
+                    </a>
 
+                    <div class="dropdown-menu">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a class="dropdown-item"
+                               href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
 
-                                </ul>
-                            </li>
-                        </ul><!-- End .top-menu -->
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-top -->
+                <span class="mx-2">|</span>
 
-            <div class="header-middle sticky-header">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
+                <!-- Social -->
+                <div>
+                    <span class="mr-2">{{ __('follow us') }}</span>
 
-                        <a href="index.html" class="logo">
-                                {{-- {{ env('APP_NAME') }}    --}}
-                            {{-- <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25"> --}}
+                    @if($setting && $setting->facebook)
+                        <a href="{{ $setting->facebook }}" target="_blank">
+                            <i class="icon-facebook-f"></i>
                         </a>
+                    @endif
 
-                        <nav class="main-nav">
-                              <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="{{route('home')}}" class="sf-with-ul">Home</a>
+                    @if($setting && $setting->instagram)
+                        <a href="{{ $setting->instagram }}" target="_blank">
+                            <i class="icon-instagram"></i>
+                        </a>
+                    @endif
+                </div>
 
-                                 
+            </div>
+
+            <!-- RIGHT -->
+            <div class="header-right">
+                <ul class="top-menu">
+                    <li>
+                        <a href="#">{{ __('links') }}</a>
+
+                        <ul>
+                            <li>
+                                <a href="tel:{{ $setting->phone }}">
+                                    <i class="icon-phone"></i> {{ $setting->phone }}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('wishlist') }}">
+                                    <i class="icon-heart-o"></i>
+                                    {{ __('wishlist') }} 
+                                  
+                                    
+                                       {{-- ({{ $wishlistCount }})  --}}
+                               
+                                    
+                                </a>
+                            </li>
+
+                            <li><a href="#">{{ __('about us') }}</a></li>
+                            <li><a href="#">{{ __('contact us') }}</a></li>
+
+                            <!-- Auth -->
+                            @if(Auth::check())
+                                <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown">
+                                        <i class="icon-user"></i> {{ Auth::user()->name }}
+                                    </a>
+
+                                    <div class="dropdown-menu">
+                                        <a href="{{ route('profile') }}" class="dropdown-item">
+                                            {{ __('profile') }}
+                                        </a>
+
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                {{ __('logout') }}
+                                            </button>
+                                        </form>
+                                    </div>
                                 </li>
-                            </ul>
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
+                            @else
+                                <li>
+                                    <a href="#signin-modal" data-toggle="modal">
+                                        {{ __('login') }}
+                                    </a>
+                                </li>
+                            @endif
 
-                    <div class="header-right">
-                        <div class="header-search">
-                            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
-                    
-                       <x-cart-dropdown />
-                                        
-           
-                </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
-        </header><!-- End .header -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
-   
+        </div>
+    </div>
+
+    <!-- ================= MIDDLE HEADER ================= -->
+    <div class="header-middle sticky-header">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <!-- LEFT -->
+            <div class="header-left d-flex align-items-center">
+
+                <button class="mobile-menu-toggler">
+                    <i class="icon-bars"></i>
+                </button>
+
+                <a href="{{ route('home') }}" class="logo">
+                    <img src="{{ asset('storage/'.$setting->logo) }}" class="logo-img" alt="logo">
+                </a>
+
+                <nav class="main-nav ml-3">
+                    <ul class="menu">
+                        <li>
+                            <a href="{{ route('home') }}">
+                                {{ __('home') }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <!-- RIGHT -->
+               
+        <div class="header-right">
+            <div class="header-search">
+                <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                <form action="#" method="get">
+                    <div class="header-search-wrapper">
+                        <label for="q" class="sr-only">Search</label>
+                        <input type="search" class="form-control" name="q" id="q" placeholder="{{__('Search in...')}}" required>
+                    </div><!-- End .header-search-wrapper -->
+                </form>
+            </div><!-- End .header-search -->
+        
+           <x-cart-dropdown />
+                            
+
+        </div><!-- End .header-right -->
+
+
+        </div>
+    </div>
+
+</header>
+        
+    

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\Models\Setting;
 use App\Models\Wishlist;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,6 @@ class AppServiceProvider extends ServiceProvider
                 }
                 $view->with('wishlistCount', $wishlistCount);
             });
-                  
+           View::share('setting', Setting::first()); 
     }
 }

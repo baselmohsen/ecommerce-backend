@@ -39,14 +39,19 @@ class WishlistController extends Controller
                 'user_id' => Auth::id(),
             ]);
         }
-
-        return redirect()->back()->with('success', "Product {$product->name} added successfully to wishlist");
+                return response()->json([
+                    'status' => 'success',
+                    'message' => "Product {$product->name}  added successfully to wishlist"
+                ]);
+        // return redirect()->back()->with('success', "Product {$product->name} added successfully to wishlist");
     }
 
     // Remove item from wishlist
     public function remove($id)
     {
         Wishlist::findOrFail($id)->delete();
-        return back()->with('success', 'Item removed from wishlist.');
+            return response()->json([
+                    'status' => 'success'
+                ]);
     }
 }

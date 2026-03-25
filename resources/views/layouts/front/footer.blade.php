@@ -1,232 +1,227 @@
+<footer class="footer">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
 
-        <footer class="footer">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="assets/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                <!-- ABOUT -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget widget-about">
+                    <img src="{{ asset('storage/'.$setting->logo) }}" class="logo-img" alt="logo">
+                   
+                        <p>{{ __('about text') }}</p>
 
-	            				<div class="social-icons">
-	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-	            				</div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                        <div class="social-icons">
+                            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                            <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                <!-- LINKS -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{ __('useful links') }}</h4>
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                        <ul class="widget-list">
+                            <li><a href="#">{{ __('about') }}</a></li>
+                            <li><a href="#">{{ __('how to shop') }}</a></li>
+                            <li><a href="#">{{ __('faq') }}</a></li>
+                            <li><a href="#">{{ __('contact') }}</a></li>
+                            <li><a href="#">{{ __('login') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                <!-- CUSTOMER SERVICE -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{ __('customer service') }}</h4>
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                        <ul class="widget-list">
+                            <li><a href="#">{{ __('payment methods') }}</a></li>
+                            <li><a href="#">{{ __('money back') }}</a></li>
+                            <li><a href="#">{{ __('returns') }}</a></li>
+                            <li><a href="#">{{ __('shipping') }}</a></li>
+                            <li><a href="#">{{ __('terms') }}</a></li>
+                            <li><a href="#">{{ __('privacy') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                <!-- MY ACCOUNT -->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{ __('my account') }}</h4>
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
+                        <ul class="widget-list">
+                            <li><a href="#">{{ __('sign in') }}</a></li>
+                            <li><a href="{{ route('cart') }}">{{ __('view cart') }}</a></li>
+                            <li><a href="#">{{ __('wishlist') }}</a></li>
+                            <li><a href="#">{{ __('track order') }}</a></li>
+                            <li><a href="#">{{ __('help') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
-        </footer><!-- End .footer -->
+            </div>
+        </div>
+    </div>
 
-    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="footer-copyright">
+                {{ __('copyright') }}
+            </p>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+            <figure class="footer-payments">
+                <img src="{{ asset('assets/images/payments.png') }}" alt="Payment methods">
+            </figure>
+        </div>
+    </div>
+</footer>
 
-    <div class="mobile-menu-container">
-        <div class="mobile-menu-wrapper">
-            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+<button id="scroll-top" title="{{ __('back to top') }}">
+    <i class="icon-arrow-up"></i>
+</button>
 
-            <form action="#" method="get" class="mobile-search">
-                <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
-                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-            </form>
-            
-            <nav class="mobile-nav">
-                <ul class="mobile-menu">
-                                <li class="active">
-                                    <a href="index.html">Home</a>
+<!-- MOBILE MENU -->
+<div class="mobile-menu-overlay"></div>
 
+<div class="mobile-menu-container">
+    <div class="mobile-menu-wrapper">
+        <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-                                </li>
-                            </ul>
-                        </nav><!-- End .mobile-nav -->
-            <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-            </div><!-- End .social-icons -->
-        </div><!-- End .mobile-menu-wrapper -->
-    </div><!-- End .mobile-menu-container -->
+        <form action="#" method="get" class="mobile-search">
+            <label class="sr-only">{{ __('search') }}</label>
+            <input type="search" class="form-control" placeholder="{{ __('search placeholder') }}" required>
+            <button class="btn btn-primary" type="submit">
+                <i class="icon-search"></i>
+            </button>
+        </form>
 
-        <!-- Sign in / Register Modal -->
-        <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="icon-close"></i></span>
-                        </button>
+        <nav class="mobile-nav">
+            <ul class="mobile-menu">
+                <li class="active">
+                    <a href="{{ route('home') }}">{{ __('home') }}</a>
+                </li>
+            </ul>
+        </nav>
 
-                        <div class="form-box">
-                            <div class="form-tab">
-                                <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="tab-content-5">
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="icon-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="icon-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="icon-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="icon-youtube"></i></a>
+        </div>
+    </div>
+</div>
 
-                                    <!-- Sign In Tab -->
-                                    <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
-                                        <form method="POST" action="{{ route('login') }}">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="email">Email or Username *</label>
-                                                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                                            </div>
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="signin-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
 
-                                            <div class="form-group">
-                                                <label for="password">Password *</label>
-                                                <input type="password" class="form-control" id="password" name="password" required>
-                                            </div>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span><i class="icon-close"></i></span>
+                </button>
 
-                                            <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>LOG IN</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
+                <div class="form-box">
+                    <div class="form-tab">
 
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="remember" name="remember">
-                                                    <label class="custom-control-label" for="remember">Remember Me</label>
-                                                </div>
+                        <ul class="nav nav-pills nav-fill">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#signin">
+                                    {{ __('sign in') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#register">
+                                    {{ __('register') }}
+                                </a>
+                            </li>
+                        </ul>
 
-                                                <a href="{{ route('password.request') }}" class="forgot-link">Forgot Your Password?</a>
-                                            </div>
-                                        </form>
+                        <div class="tab-content">
 
-                                        <div class="form-choice">
-                                            <p class="text-center">or sign in with</p>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <a href="{{route('auth.socilaite.redirect','google')}}" class="btn btn-login btn-g">
-                                                        <i class="icon-google"></i>
-                                                        Login With Google
-                                                    </a>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <a href="{{route('auth.socilaite.redirect','facebook')}}" class="btn btn-login btn-f">
-                                                        <i class="icon-facebook-f"></i>
-                                                        Login With Facebook
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <!-- LOGIN -->
+                            <div class="tab-pane fade show active" id="signin">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+
+                                    <div class="form-group">
+                                        <label>{{ __('email') }}</label>
+                                        <input type="text" name="email" class="form-control" required>
                                     </div>
 
-                                    <!-- Register Tab -->
-                                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                        <form method="POST" action="{{ route('register') }}">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="name">Name *</label>
-                                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
-                                            </div>
+                                    <div class="form-group">
+                                        <label>{{ __('password') }}</label>
+                                        <input type="password" name="password" class="form-control" required>
+                                    </div>
 
-                                            <div class="form-group">
-                                                <label for="email">Email *</label>
-                                                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                                            </div>
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2">
+                                            <span>{{ __('login') }}</span>
+                                        </button>
 
-                                            <div class="form-group">
-                                                <label for="password">Password *</label>
-                                                <input type="password" class="form-control" id="password" name="password" required>
-                                            </div>
+                                        <label>
+                                            <input type="checkbox" name="remember">
+                                            {{ __('remember me') }}
+                                        </label>
 
-                                            <div class="form-group">
-                                                <label for="password_confirmation">Confirm Password *</label>
-                                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                                            </div>
+                                        <a href="{{ route('password.request') }}">
+                                            {{ __('forgot password') }}
+                                        </a>
+                                    </div>
+                                </form>
 
-                                            <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>SIGN UP</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
+                                <p class="text-center">{{ __('or login with') }}</p>
 
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                    <label class="custom-control-label" for="register-policy">
-                                                        I agree to the <a href="#">privacy policy</a> *
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </form>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="{{route('auth.socilaite.redirect','google')}}" class="btn btn-login btn-g">
+                                            <i class="icon-google"></i>
+                                            {{ __('login google') }}
+                                        </a>
+                                    </div>
 
-                                    
+                                    <div class="col-sm-6">
+                                        <a href="{{route('auth.socilaite.redirect','facebook')}}" class="btn btn-login btn-f">
+                                            <i class="icon-facebook-f"></i>
+                                            {{ __('login facebook') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 
-                                    </div><!-- End .tab-pane -->
+                            <!-- REGISTER -->
+                            <div class="tab-pane fade" id="register">
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
 
-                                </div><!-- End .tab-content -->
-                            </div><!-- End .form-tab -->
-                        </div><!-- End .form-box -->
-                    </div><!-- End .modal-body -->
-                </div><!-- End .modal-content -->
-            </div><!-- End .modal-dialog -->
-        </div><!-- End .modal -->
+                                    <input type="text" name="name" class="form-control" placeholder="{{ __('name') }}" required>
+                                    <input type="email" name="email" class="form-control" placeholder="{{ __('email') }}" required>
+                                    <input type="password" name="password" class="form-control" placeholder="{{ __('password') }}" required>
+                                    <input type="password" name="password_confirmation" class="form-control" placeholder="{{ __('confirm password') }}" required>
 
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        {{ __('sign up') }}
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Plugins JS File -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>

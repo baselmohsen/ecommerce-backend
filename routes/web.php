@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CartController;
@@ -50,6 +51,7 @@ Route::group(
      Route::get('cart', [CartController::class,'index']);
      Route::post('cart', [CartController::class,'store'])->name('cart');
      Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+     Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 
 
      Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
@@ -91,6 +93,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('orders', OrderController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+
+
+
+     Route::get('/settings', [SettingController::class, 'index'])
+        ->name('settings');
+
+    Route::post('/settings', [SettingController::class, 'update']);
+
 });
 
 });

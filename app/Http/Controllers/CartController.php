@@ -41,23 +41,35 @@ class CartController extends Controller
                         'user_id '=> Auth::id(),
                         ]);
                     }
-                        
-                   return redirect()->back()->with('success', "Product '{$product->name}' added to cart!");
-}
-          
+                            return response()->json([
+                                'status' => 'success',
+                                'message' => "Product {$product->name}  added successfully  to cart!"
+                            ]); 
+                  }
+          public function update(Request $request, $id)
+        {
+            $cart = Cart::findOrFail($id);
+
+            $cart->update([
+                'quantity' => $request->quantity
+            ]);
+
+            $itemTotal = $cart->quantity * ($cart->product->sale_price ?? $cart->product->price);
+
+            return response()->json([
+                'message' => "Product {$cart->product->name}  quantity updated successfully",
+                'item_total' => $itemTotal,
+            ]);
+        }
   
 
         public function remove($id)
-        {
-            Cart::findOrFail($id)->delete();
-            return back()->with('success', 'Item removed from cart.');
+            {
+                Cart::findOrFail($id)->delete();
+                return response()->json([
+                        'status' => 'success'
+                    ]);
         }
-    // public function getCartId(){
-    //     $id=Cookie::get('cart_id');
-    //     if(!$id){
-    //             $id=Str::uuid();
-    //             Cookie::queue('cart_id',$id,60*24*30);
-    //     }
-    //     return $id;
-    // }
-}
+        }
+   
+

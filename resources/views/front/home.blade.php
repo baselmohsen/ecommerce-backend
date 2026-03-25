@@ -78,20 +78,14 @@
                                     @endif
                                 </a>
 
-                                                                    <!-- Hidden form for wishlist -->
-                                    <form id="add_to_wishlist_{{ $product->id }}" action="{{ route('wishlist') }}" method="POST" style="display: none;">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    </form>
-
-                                    <!-- Wishlist button -->
                                     <div class="product-action-vertical">
-                                        <a href="javascript:;" 
-                                        onclick="document.getElementById('add_to_wishlist_{{ $product->id }}').submit()" 
+                                       <a href="javascript:;" 
+                                        data-id="{{ $product->id}}"
                                         class="btn-product-icon btn-wishlist">
                                             <span>Add to Wishlist</span>
                                         </a>
                                     </div>
+
                             </figure><!-- End .product-media -->
 
                             <div class="product-body">
@@ -109,7 +103,7 @@
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
 
-                            <!-- Add to cart form -->
+                            {{-- <!-- Add to cart form -->
                             <form id="add_to_cart_{{ $product->id }}" action="{{ route('cart') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -119,6 +113,13 @@
                                 <a href="javascript:;" 
                                 onclick="document.getElementById('add_to_cart_{{ $product->id }}').submit()" 
                                 class="btn-product btn-cart">
+                                    <span>add to cart</span>
+                                </a>
+                            </div><!-- End .product-action --> --}}
+                            <div class="product-action">
+                                <a href="javascript:;" 
+                                data-id="{{$product->id}}"
+                                class="btn-product btn-cart" >
                                     <span>add to cart</span>
                                 </a>
                             </div><!-- End .product-action -->
@@ -138,4 +139,81 @@
 
 @endsection
   
-   
+ @push('scripts')
+     <script>
+        $('.btn-wishlist').click(function () {
+    let productId = $(this).data('id');
+
+    $.ajax({
+        url: "{{ route('wishlist') }}",
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            product_id: productId
+        },
+        success: function (res) {
+           
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        },
+        error: function () {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        }
+    });
+
+
+    
+});
+
+
+$('.btn-cart').click(function () {
+    let productId = $(this).data('id');
+
+    $.ajax({
+        url: "{{ route('cart') }}",
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            product_id: productId
+        },
+        success: function (res) {
+           
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        },
+        error: function () {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: res.message,
+                showConfirmButton: false,
+                timer: 3000,
+            });
+        }
+    });
+
+
+    
+});
+     </script>
+ @endpush  

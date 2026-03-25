@@ -24,10 +24,7 @@
     <div class="page-content">
         <div class="container">
 
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
+         
             @if($wishlistItems->count() > 0)
                 <table class="table table-wishlist table-mobile">
                     <thead>
@@ -87,11 +84,8 @@
 
                             <!-- Remove from Wishlist -->
                             <td class="remove-col">
-                                <form id="remove_wishlist_{{ $item->id }}" action="{{ route('wishlist.remove', $item->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                                <button class="btn-remove" onclick="document.getElementById('remove_wishlist_{{ $item->id }}').submit()">
+                           
+                                <button class="btn-remove btn-remove-wishlist"  data-id="{{ $item->id }}" >
                                     <i class="icon-close"></i>
                                 </button>
                             </td>
@@ -120,3 +114,34 @@
     </div>
 </main>
 @endsection
+
+@push('scripts')
+    <script>
+        $('.btn-remove-wishlist').click(function () {
+    let id = $(this).data('id');
+    let row = $(this).closest('tr');
+
+    $.ajax({
+        url: "/wishlist/remove/" + id,
+        method: "POST",
+        data: {
+            _token: "{{ csrf_token() }}",
+            _method: "DELETE"
+        },
+        success: function () {
+            row.remove(); 
+        },
+        error: function () {
+                        Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+        }
+    });
+});
+    </script>
+@endpush
