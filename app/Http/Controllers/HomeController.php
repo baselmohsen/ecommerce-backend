@@ -17,7 +17,17 @@ class HomeController extends Controller
                
                 return view('front.home', compact('products', 'categories'));
             }
+            public function SearchAjax(Request $request)
+            {
+                $search = $request->search;
 
+                $products = Product::with('category')
+                    ->where('name', 'like', "%$search%")
+                    ->take(10)
+                    ->get();
+
+                return response()->json($products);
+            }
         public function profile()
          {
             $user = auth()->user();

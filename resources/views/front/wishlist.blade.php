@@ -69,12 +69,9 @@
                             <!-- Add to Cart / Options -->
                             <td class="action-col">
                                 @if($item->product->stock > 0)
-                                    <form id="add_to_cart_{{ $item->product->id }}" action="{{ route('cart') }}" method="POST" style="display:none;">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $item->product->id }}">
-                                    </form>
-                                    <button class="btn btn-block btn-outline-primary-2" 
-                                            onclick="document.getElementById('add_to_cart_{{ $item->product->id }}').submit()">
+                                   
+                                    <button class="btn btn-block btn-outline-primary-2 btn-cart" 
+                                            data-id="{{ $item->product->id }}">
                                         <i class="icon-cart-plus"></i> Add to Cart
                                     </button>
                                 @else
@@ -115,33 +112,3 @@
 </main>
 @endsection
 
-@push('scripts')
-    <script>
-        $('.btn-remove-wishlist').click(function () {
-    let id = $(this).data('id');
-    let row = $(this).closest('tr');
-
-    $.ajax({
-        url: "/wishlist/remove/" + id,
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            _method: "DELETE"
-        },
-        success: function () {
-            row.remove(); 
-        },
-        error: function () {
-                        Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: 'error',
-                        title: res.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                    });
-        }
-    });
-});
-    </script>
-@endpush

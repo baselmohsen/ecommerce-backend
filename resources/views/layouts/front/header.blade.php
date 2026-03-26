@@ -18,7 +18,7 @@
     <link rel="manifest" href="{{ asset('assets/images/icons/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('assets/images/icons/safari-pinned-tab.svg') }}" color="#666666">
     <link rel="shortcut icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
@@ -183,17 +183,18 @@
                
         <div class="header-right">
             <div class="header-search">
-                <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                <a href="javascript:;" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
                 <form action="#" method="get">
                     <div class="header-search-wrapper">
                         <label for="q" class="sr-only">Search</label>
-                        <input type="search" class="form-control" name="q" id="q" placeholder="{{__('Search in...')}}" required>
+                        <input type="search" class="form-control input-search" name="q" id="q" placeholder="{{__('Search in...')}}" required>
                     </div><!-- End .header-search-wrapper -->
                 </form>
             </div><!-- End .header-search -->
-        
-           <x-cart-dropdown />
-                            
+
+                    @if (!request()->routeIs('cart'))
+                        <x-cart-dropdown />
+                    @endif                                          
 
         </div><!-- End .header-right -->
 
@@ -202,5 +203,4 @@
     </div>
 
 </header>
-        
     

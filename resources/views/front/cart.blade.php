@@ -36,7 +36,7 @@
                 <div class="row">
 
                     <!-- LEFT -->
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <table class="table table-cart table-mobile">
                             <thead>
                                 <tr>
@@ -56,13 +56,13 @@
                                         <td class="product-col">
                                             <div class="product">
                                                 <figure class="product-media">
-                                                    <a href="{{ route('product.show', $item->product->id) }}">
+                                                    <a href="{{ route('product.show', $item->product->slug) }}">
                                                         <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}">
                                                     </a>
                                                 </figure>
 
                                                 <h3 class="product-title">
-                                                    <a href="{{ route('product.show', $item->product->id) }}">
+                                                    <a href="{{ route('product.show', $item->product->slug) }}">
                                                         {{ $item->product->name }}
                                                     </a>
                                                 </h3>
@@ -110,15 +110,22 @@
                                     </div>
                                 </form>
                             </div>
-
-                            <a href="#" class="btn btn-outline-dark-2">
-                                <span>{{ __('update cart') }}</span>
-                            </a>
+                            <a href="{{ route('home') }}" class="btn btn-outline-dark-2">
+                                   {{ __('update cart') }}
+                               </a>
+                               
+                           <div class="d-flex justify-content-start gap-5">
+                                <a href="{{ route('checkout') }}" class="btn btn-outline-primary-2">
+                                    {{ __('PROCEED TO CHECKOUT') }}
+                                </a>
+                               
+                            </div>
                         </div>
                     </div>
 
                  
                 </div>
+                
             </div>
         </div>
     </div>
@@ -128,77 +135,3 @@
 @endsection
 
 
-@push('scripts')
-    <script>
-$('.btn-remove-cart').click(function () {
-    let id = $(this).data('id');
-    let row = $(this).closest('tr');
-
-    $.ajax({
-        url: "cart/remove/" + id,
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            _method: "DELETE"
-        },
-        success: function () {
-            row.remove(); 
-        },
-        error: function () {
-                        Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        icon: 'error',
-                        title: res.message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                    });
-        }
-    });
-});
-$(document).on('change', '.btn-quantity', function () {
-
-    let input = $(this);
-    let id = input.data('id');
-    let quantity = input.val();
-    let row = input.closest('tr');
-
-    $.ajax({
-        url: "/cart/update/" + id,
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            _method: "PUT",
-            quantity: quantity
-        },
-        success: function (res) {
-
-            // تحديث total بتاع الصف
-            row.find('.total-col').text('$' + res.item_total);
-
-            // // تحديث total الكلي
-            // $('.summary-total td:last').text('$' + res.cart_total);
-
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        },
-        error: function (res) {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 2000,
-            });
-        }
-    });
-});
-    </script>
-@endpush

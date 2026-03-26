@@ -8,7 +8,7 @@
         <div class="dropdown-cart-products">
 
             @forelse($cartItems as $item)
-                <div class="product">
+                <div class="product div-remove">
                     <div class="product-cart-details">
                         <h4 class="product-title">
                             <a href="{{ route('product.show', $item->product->slug) }}">
@@ -28,9 +28,10 @@
                         </a>
                     </figure>
 
-                    <a href="{{ route('cart.remove', $item->id) }}" class="btn-remove" title="{{ __('remove product') }}">
+                    <a href="javascript:;" data-id="{{$item->id}}" class="btn-remove btn-remove-cart" title="{{ __('remove product') }}">
                         <i class="icon-close"></i>
                     </a>
+
                 </div>
             @empty
                 <p class="text-center p-2">{{ __('empty cart') }}</p>

@@ -38,7 +38,7 @@ Route::group(
 
         Route::get('/', [HomeController::class,'index'])->name('home');
   
-
+        Route::get('/search', [HomeController::class, 'SearchAjax'])->name('search.ajax');
 
 
      Route::get('profile', [HomeController::class,'profile'])->name('profile')->middleware('auth');
@@ -47,8 +47,8 @@ Route::group(
      Route::post('wishlist', [WishlistController::class,'store'])->name('wishlist');
      Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 
-
-     Route::get('cart', [CartController::class,'index']);
+     Route::get('/cart/dropdown', [CartController::class, 'index'])->name('cart.dropdown'); 
+     Route::get('cart', [CartController::class,'index'])->name('cart');
      Route::post('cart', [CartController::class,'store'])->name('cart');
      Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
      Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');

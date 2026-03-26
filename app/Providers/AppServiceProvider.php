@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
                 Paginator::useBootstrap();
-
+             
             app()->bind('cart.id',function(){
                 $id=Cookie::get('cart_id');
                 if(!$id){

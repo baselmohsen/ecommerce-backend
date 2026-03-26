@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -34,6 +36,16 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
+
+        
+        $user_id = Auth::id();
+        $cart_id = Cookie::get('cart_id');
+
+        if ($cart_id) {
+            DB::table('carts')
+                ->where('cart_id', $cart_id)
+                ->update(['user_id' => $user_id]);
+        }
 
         if ($user->type === 'super_admin' || $user->type === 'admin') {
             return redirect()->route('admin.dashboard');

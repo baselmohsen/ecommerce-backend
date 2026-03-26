@@ -153,14 +153,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h2 class="card-title">
-                                                <input type="radio" name="payment_method" value="bank">
-                                                {{ __('bank transfer') }}
-                                            </h2>
-                                        </div>
-                                    </div>
 
                                 </div>
 

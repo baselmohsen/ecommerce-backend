@@ -12,14 +12,28 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
-    public function index(){
+    public function index(Request $request){
         $id=App::make('cart.id');
-        $cartItems=Cart::with('product')->where('cart_id',$id)->get();
+        $cartItems=Cart::with('product')->where('cart_id',$id)
+        ->orWhere('user_id',Auth::id())
+        ->get();
         $total=$cartItems->sum(function($item){
             return $item->product->sale_price * $item->quantity;
         });
         
-        return view('front.cart',compact('cartItems','total'));
+        
+        if ($request->ajax()) {
+            $cartHtml = view('components.cart-dropdown', compact('cartItems', 'total'))->render();
+            return response()->json([
+                'status' => 'success',
+                'cartHtml' => $cartHtml,
+                'cartCount' => $cartItems->count(),
+                'total' => $total
+            ]);
+        }
+
+    // Regular page request
+       return view('front.cart', compact('cartItems', 'total'));
     }
 
     public function store(Request $request){
@@ -63,13 +77,33 @@ class CartController extends Controller
         }
   
 
-        public function remove($id)
-            {
-                Cart::findOrFail($id)->delete();
-                return response()->json([
-                        'status' => 'success'
-                    ]);
-        }
+       public function remove($id)
+{
+    // Delete the item
+    Cart::findOrFail($id)->delete();
+
+    // Get updated cart items
+    $cartId = App::make('cart.id');
+    $cartItems = Cart::with('product')
+        ->where('cart_id', $cartId)
+        ->orWhere('user_id', auth()->id())
+        ->get();
+
+    $total = $cartItems->sum(function($item){
+        return $item->product->sale_price * $item->quantity;
+    });
+
+    // Render updated cart component
+    $cartHtml = view('components.cart-dropdown', compact('cartItems', 'total'))->render();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Item removed!',
+        'cartHtml' => $cartHtml,
+        'cartCount' => $cartItems->count(),
+        'total' => $total
+    ]);
+}
         }
    
 

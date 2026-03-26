@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -45,6 +47,13 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        $cart_id = Cookie::get('cart_id');
+
+                if ($cart_id) {
+                    DB::table('carts')
+                        ->where('cart_id', $cart_id)
+                        ->update(['user_id' => $user->id]);
+                }
 
         return redirect(RouteServiceProvider::HOME);
     }

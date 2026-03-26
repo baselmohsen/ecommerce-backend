@@ -62,9 +62,9 @@
 
            <!-- ALL PRODUCTS -->
             <div class="tab-pane fade show active" id="top-all-tab">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center product-card">
                     @foreach($products as $product)
-                    <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
+                    <div class="col-6 col-md-4 col-lg-3 col-xl-5col ">
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="{{ route('product.show', $product->slug) }}">
@@ -139,81 +139,3 @@
 
 @endsection
   
- @push('scripts')
-     <script>
-        $('.btn-wishlist').click(function () {
-    let productId = $(this).data('id');
-
-    $.ajax({
-        url: "{{ route('wishlist') }}",
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            product_id: productId
-        },
-        success: function (res) {
-           
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        },
-        error: function () {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        }
-    });
-
-
-    
-});
-
-
-$('.btn-cart').click(function () {
-    let productId = $(this).data('id');
-
-    $.ajax({
-        url: "{{ route('cart') }}",
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            product_id: productId
-        },
-        success: function (res) {
-           
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        },
-        error: function () {
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: res.message,
-                showConfirmButton: false,
-                timer: 3000,
-            });
-        }
-    });
-
-
-    
-});
-     </script>
- @endpush  

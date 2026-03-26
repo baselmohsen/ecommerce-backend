@@ -238,7 +238,9 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/demos/demo-2.js') }}"></script>
 
-            @if(session('success'))
+<script src="{{ asset('js/app.js') }}"></script>
+
+            {{-- @if(session('success'))
             <script>
             Swal.fire({
                 toast: true,                  // Makes it a toast (small rectangle)
@@ -268,7 +270,9 @@
                 color: '#fff',
             });
             </script>
-            @endif
+
+         
+            @endif --}}
 
 
 
@@ -279,8 +283,6 @@
 
 
 @stack('scripts')
+
 </body>
-
-
-<!-- molla/cart.html  22 Nov 2019 09:55:06 GMT -->
 </html>
