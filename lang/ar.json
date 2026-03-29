@@ -83,6 +83,7 @@
   "price": "السعر",
   "quantity": "الكمية",
   "total": "الإجمالي",
+  "subtotal": "تحت الإجمالي",
   "coupon code": "كود الخصم",
   "update cart": "تحديث السلة",
   "your order": "طلبك",
@@ -135,14 +136,27 @@
   "copyright": "© جميع الحقوق محفوظة",
 
   "register": "إنشاء حساب",
+  "status": "الحالة ",
+  "view": "عرض ",
 
   "search placeholder": "ابحث...",
 
   "remember me": "تذكرني",
   "forgot password": "نسيت كلمة المرور؟",
+
   "or login with": "أو سجل باستخدام",
   "login google": "تسجيل عبر جوجل",
   "login facebook": "تسجيل عبر فيسبوك",
+  "PROCEED TO CHECKOUT": "المتابعة إلى الدفع",
+  "The Latest Products": "أحدث المنتجات",
+  "Our Categories": "التصنيفات",
+  "sign up": "إنشاء حساب",
+  "You May Also Like": "قد يعجبك أيضًا",
+   "settings": "الإعدادات",
+  "pharmacy name": "اسم الصيدلية",
 
-  "sign up": "إنشاء حساب"
+  "facebook": "فيسبوك",
+  "instagram": "إنستجرام",
+  "logo": "الشعار",
+  "save settings": "حفظ الإعدادات"
 }

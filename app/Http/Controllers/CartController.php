@@ -52,11 +52,12 @@ class CartController extends Controller
                         'cart_id' => $cart_id,
                         'quantity'=>$request->post('quantity',1),
                         'product_id'=>$request->post('product_id'),
-                        'user_id '=> Auth::id(),
+                        'user_id'=> Auth::id(),
                         ]);
                     }
                             return response()->json([
                                 'status' => 'success',
+                                'user_id' => Auth::id(),
                                 'message' => "Product {$product->name}  added successfully  to cart!"
                             ]); 
                   }

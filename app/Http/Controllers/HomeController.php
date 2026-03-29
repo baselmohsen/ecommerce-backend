@@ -11,8 +11,8 @@ class HomeController extends Controller
 
          public function index()
             {
-                $products = Product::with('category')->latest()->take(8)->get();
-                $categories = Category::with('products')->latest()->take(4)->get();
+                $products = Product::with('category')->latest()->take(10)->get();
+                $categories = Category::with('products')->latest()->take(5)->get();
 
                
                 return view('front.home', compact('products', 'categories'));

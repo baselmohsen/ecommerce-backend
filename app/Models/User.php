@@ -49,12 +49,12 @@ class User extends Authenticatable
     ];
 
 
-    public function hasPermission($code)
+    public function hasPermission($ability)
         {
            
                 return DB::table('users_permissions')->where([
                     'user_id'=>$this->id,
-                    'permission'=>$code,
+                    'permission'=>$ability,
                 ])->exists();
 
         }

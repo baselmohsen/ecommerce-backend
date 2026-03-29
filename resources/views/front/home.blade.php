@@ -15,7 +15,7 @@
       
       <div class="banner-group">
             <div class="heading heading-center mb-3">
-                        <h2 class="title">Our Categories</h2>
+                        <h2 class="title"> {{__('Our Categories')}}</h2>
                     </div>
             <div class="container">
                 <div class="row">
@@ -55,7 +55,7 @@
 
     <div class="container">
         <div class="heading heading-center mb-3">
-            <h2 class="title">The Latest Products</h2>
+            <h2 class="title">{{__('The Latest Products')}}</h2>
         </div>
 
          <div class="tab-content">
@@ -69,13 +69,10 @@
                             <figure class="product-media">
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <!-- Default image if not found -->
-                                    <img src="{{ asset($product->image ? 'storage/'.$product->image : 'assets/images/default-product.jpg') }}" 
+                                    <img src="{{ $product->image_url  }}" 
                                         alt="{{ $product->name }}" class="product-image">
-                                    <!-- Hover image: optional, if you have second image -->
-                                    @if($product->second_image)
-                                        <img src="{{ asset('storage/'.$product->second_image) }}" 
-                                            alt="{{ $product->name }}" class="product-image-hover">
-                                    @endif
+                                   
+                                 
                                 </a>
 
                                     <div class="product-action-vertical">

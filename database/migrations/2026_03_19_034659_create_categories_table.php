@@ -1,36 +1,63 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace Database\Seeders;
 
-return new class extends Migration
+use Illuminate\Database\Seeder;
+use App\Models\Category;
+
+class CategorySeeder extends Seeder
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function run(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->timestamps();
+        // MAIN CATEGORIES
+        $baby = Category::create([
+            'name' => 'Baby Care',
+            'description' => 'Products for babies and infants',
+        ]);
 
-            $table->foreignId('parent_id')
-            ->nullable()
-            ->constrained('categories')
-            ->cascadeOnDelete();
+        $face = Category::create([
+            'name' => 'Face Care',
+            'description' => 'Skin care products for the face',
+        ]);
 
-        });
+        $hair = Category::create([
+            'name' => 'Hair Care',
+            'description' => 'Hair treatment and styling products',
+        ]);
+
+        $body = Category::create([
+            'name' => 'Body Care',
+            'description' => 'Body lotions and hygiene products',
+        ]);
+
+        $vitamins = Category::create([
+            'name' => 'Vitamins & Supplements',
+            'description' => 'Health supplements and vitamins',
+        ]);
+
+        // SUBCATEGORIES
+
+        // Baby Care
+        Category::create(['name' => 'Diapers', 'parent_id' => $baby->id]);
+        Category::create(['name' => 'Baby Milk', 'parent_id' => $baby->id]);
+        Category::create(['name' => 'Baby Shampoo', 'parent_id' => $baby->id]);
+
+        // Face Care
+        Category::create(['name' => 'Face Wash', 'parent_id' => $face->id]);
+        Category::create(['name' => 'Moisturizers', 'parent_id' => $face->id]);
+        Category::create(['name' => 'Sunscreen', 'parent_id' => $face->id]);
+
+        // Hair Care
+        Category::create(['name' => 'Shampoo', 'parent_id' => $hair->id]);
+        Category::create(['name' => 'Conditioner', 'parent_id' => $hair->id]);
+        Category::create(['name' => 'Hair Oil', 'parent_id' => $hair->id]);
+
+        // Body Care
+        Category::create(['name' => 'Body Lotion', 'parent_id' => $body->id]);
+        Category::create(['name' => 'Shower Gel', 'parent_id' => $body->id]);
+
+        // Vitamins
+        Category::create(['name' => 'Vitamin C', 'parent_id' => $vitamins->id]);
+        Category::create(['name' => 'Multivitamins', 'parent_id' => $vitamins->id]);
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('categories');
-    }
-};
+}

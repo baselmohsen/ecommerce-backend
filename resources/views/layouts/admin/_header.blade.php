@@ -67,7 +67,7 @@
                 <li>
                     <a class="dropdown-item" href="page-login.html" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out fa-lg"></i>
-                        @lang('site.logout')
+                        @lang('logout')
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

@@ -10,16 +10,28 @@ use Illuminate\Support\Facades\Notification  ;
 
 class OrderController extends Controller
 {
+
+    
     // عرض كل الطلبات
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::latest()->paginate(20); // يمكنك تغيير العدد حسب الحاجة
+        $this->authorize('viewAny', Order::class);
+
+      $orders = Order::when($request->search, function ($query) use ($request) {
+                $query->where('first_name', 'like', '%' . $request->search . '%');
+            })
+            ->latest()
+            ->paginate(15);
+
+
         return view('admin.orders.index', compact('orders'));
     }
 
     // عرض صفحة طلب محدد
     public function show($id)
     {
+        $this->authorize('viewAny', Order::class);
+
         $order = Order::with('items.product')->findOrFail($id); // علاقة مع المنتجات داخل الطلب
         return view('admin.orders.show', compact('order'));
     }
@@ -39,14 +51,18 @@ class OrderController extends Controller
     // تعديل طلب (مثلاً تغيير الحالة)
     public function edit($id)
     {
+        
         $order = Order::findOrFail($id);
+        $this->authorize('update', $order);
         return view('admin.orders.edit', compact('order'));
     }
 
       
     public function update(Request $request, $id)
     {
+        
         $order = Order::findOrFail($id);
+        $this->authorize('update', $order);
 
             $request->validate([
                 'status' => 'required|in:new,processing,on_delivery,completed',
@@ -69,7 +85,9 @@ class OrderController extends Controller
     // حذف طلب
     public function destroy($id)
     {
+        
         $order = Order::findOrFail($id);
+        $this->authorize('delete', $order);
         $order->delete();
         return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderPlaced;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -10,12 +11,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Notification;
 use App\Notifications\NewOrderNotification;
 class CheckoutController extends Controller
 {
     public function index()
     {
+
+
+           if (!Auth::check()) {
+        // Flash message with login link
+                return redirect()->back()->with('error', 'You must <a href="'.route('login').'">Login</a> to proceed to checkout.');
+            }
         $id = App::make('cart.id');
         $cartItems = Cart::with('product')->where('cart_id', $id)->get();
 
@@ -72,16 +78,12 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // Clear Cart
-            //Cart::where('cart_id', $id)->delete();
-
             DB::commit();
-                $super_admin = User::where('type', 'super_admin')->first();
-                
-                $super_admin->notify(new NewOrderNotification($order));
-            
-            return redirect()->route('checkout.success')
-                             ->with('success', 'Order placed successfully!');
+             
+            event(new OrderPlaced($order));
+
+            return redirect()->route('checkout.success');
+                            
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to place order: ' . $e->getMessage())->withInput();

@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SettingController extends Controller
 {
     
     public function index()
     {
+
+            Gate::authorize('settings.index');
+
         // $setting = Setting::first(); 
         // return view('admin.settings.index', compact('setting'));
          return view('admin.settings.index');
@@ -19,6 +23,9 @@ class SettingController extends Controller
     
     public function update(Request $request)
     {
+
+            Gate::authorize('settings.update');
+
         $request->validate([
             'pharmacy_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',

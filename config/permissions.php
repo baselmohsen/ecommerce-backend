@@ -7,7 +7,6 @@ return [
     "categories.update" => "Update Categories",
     "categories.create" => "Create Categories",
     "categories.delete" => "Delete Categories",
-    "dashboard.view" => " View Dashboard",
     // Products
     "products.index"       => "Show Products",
     "products.update"      => "Update Products",
@@ -25,7 +24,12 @@ return [
     // Orders
     "orders.index"  => "Show Orders",
     "orders.update" => "Update Orders",
-    "orders.create" => "Create Orders",
     "orders.delete" => "Delete Orders",
+    "orders.show" => "Show Orders",
+
+
+    "settings.index"  => "Show Settings",
+    "settings.update" => "Update Settings",
+    "dashboard.view" => " View Dashboard",
 
 ];

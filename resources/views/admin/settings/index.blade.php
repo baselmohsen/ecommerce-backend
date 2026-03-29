@@ -6,8 +6,9 @@
 
     <div class="box box-primary">
 
+        {{-- Header --}}
         <div class="box-header d-flex justify-content-between mb-2">
-            <h3 class="box-title">Settings</h3>
+            <h3 class="box-title">{{ trans('settings') }}</h3>
         </div>
 
         <div class="box-body">
@@ -20,49 +21,49 @@
 
                 {{-- pharmacy name --}}
                 <div class="form-group">
-                    <label>Pharmacy Name</label>
+                    <label>{{ trans('pharmacy name') }}</label>
                     <input type="text" name="pharmacy_name" class="form-control"
                            value="{{ old('pharmacy_name', $setting->pharmacy_name ?? '') }}">
                 </div>
 
                 {{-- phone --}}
                 <div class="form-group">
-                    <label>Phone</label>
+                    <label>{{ trans('phone') }}</label>
                     <input type="text" name="phone" class="form-control"
                            value="{{ old('phone', $setting->phone ?? '') }}">
                 </div>
 
                 {{-- email --}}
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>{{ trans('email') }}</label>
                     <input type="email" name="email" class="form-control"
                            value="{{ old('email', $setting->email ?? '') }}">
                 </div>
 
                 {{-- address --}}
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>{{ trans('address') }}</label>
                     <input type="text" name="address" class="form-control"
                            value="{{ old('address', $setting->address ?? '') }}">
                 </div>
 
                 {{-- facebook --}}
                 <div class="form-group">
-                    <label>Facebook</label>
+                    <label>{{ trans('facebook') }}</label>
                     <input type="text" name="facebook" class="form-control"
                            value="{{ old('facebook', $setting->facebook ?? '') }}">
                 </div>
 
                 {{-- instagram --}}
                 <div class="form-group">
-                    <label>Instagram</label>
+                    <label>{{ trans('instagram') }}</label>
                     <input type="text" name="instagram" class="form-control"
                            value="{{ old('instagram', $setting->instagram ?? '') }}">
                 </div>
 
                 {{-- logo --}}
                 <div class="form-group">
-                    <label>Logo</label>
+                    <label>{{ trans('logo') }}</label>
                     <input type="file" name="logo" class="form-control">
 
                     @if($setting && $setting->logo)
@@ -75,7 +76,7 @@
                 {{-- submit --}}
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-save"></i> Save Settings
+                        <i class="fa fa-save"></i> {{ trans('save settings') }}
                     </button>
                 </div>
 

@@ -27,15 +27,19 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::before(function ($user, $ability) {
-                        if ($user->type = 'super_admin') {
+                        if ($user->type === 'super_admin') {
                             return true;
                         }
                     });
-                Gate::define('dashboard.view',function($user) {
-                         return DB::table('users_permissions')->where([
-                    'user_id'=>$user->id,
-                    'permission'=>'dashboard.view',
-                ])->exists();
-                });
+
+        Gate::define('dashboard.view',function($user) {
+                        return $user->hasPermission('dashboard.view');
+                });     
+        Gate::define('settings.index',function($user) {
+                        return $user->hasPermission('settings.index');
+                });     
+        Gate::define('settings.update',function($user) {
+                        return $user->hasPermission('settings.update');
+                });     
     }
 }

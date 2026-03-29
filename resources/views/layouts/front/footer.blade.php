@@ -240,7 +240,7 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 
-            {{-- @if(session('success'))
+            @if(session('success'))
             <script>
             Swal.fire({
                 toast: true,                  // Makes it a toast (small rectangle)
@@ -259,20 +259,21 @@
             @if(session('error'))
             <script>
             Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: "{{ session('error') }}",
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-                background: '#dc3545',        // Optional: red background
-                color: '#fff',
+                      toast: false, // center modal
+                    position: 'center',
+                    icon: 'error',
+                    html: `{!! session('error') !!}`, // render HTML with link
+                    showConfirmButton: true,         // show OK button
+                    confirmButtonText: 'OK',
+                    background: '#dc3545',           // red background
+                    color: '#fff',
+                    allowOutsideClick: false,        // can't click outside to close
+                    allowEscapeKey: false    
             });
             </script>
 
          
-            @endif --}}
+            @endif
 
 
 

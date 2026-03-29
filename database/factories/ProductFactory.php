@@ -24,7 +24,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 10, 1000),
             'sale_price' => $this->faker->randomFloat(2, 10, 1000),
             'stock' => $this->faker->numberBetween(0, 100),
-            'image' => $this->faker->imageUrl(400, 400, 'technics', true),
+            'image' => 'products/7cYySjR0P0izpcf9RCZADJR6pt12TwFShn1nlmQ5.jpg',
             'expiry_date' => $expiry ? $expiry->format('Y-m-d') : null,
         ];
     }

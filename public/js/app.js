@@ -11,10 +11,6 @@ function updateCartDropdown() {
 }
 
 
-// Call loadCart on page load
-$(document).ready(function() {
-    loadCart();
-});
 
 $(document).on('click', '.btn-cart', function () {
     let productId = $(this).data('id');
