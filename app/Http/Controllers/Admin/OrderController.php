@@ -17,11 +17,10 @@ class OrderController extends Controller
     {
         $this->authorize('viewAny', Order::class);
 
-      $orders = Order::when($request->search, function ($query) use ($request) {
-                $query->where('first_name', 'like', '%' . $request->search . '%');
-            })
-            ->latest()
-            ->paginate(15);
+       $orders = Order::active()
+        ->search($request->search)
+        ->latest()
+        ->paginate(15);
 
 
         return view('admin.orders.index', compact('orders'));
@@ -65,7 +64,7 @@ class OrderController extends Controller
         $this->authorize('update', $order);
 
             $request->validate([
-                'status' => 'required|in:new,processing,on_delivery,completed',
+                'status' => 'required|in:new,processing,canseled,completed',
                 'notes'  => 'nullable|string',
             ]);
 
@@ -76,7 +75,7 @@ class OrderController extends Controller
         ]);
 
            if ($order->status === 'completed') {
-                    $order->user->notify(new OrderDoneNotification($order));
+                    //$order->user->notify(new OrderDoneNotification($order));
                     //Notification::route('mail','baselmohsen585@gmail.com')->notify(new OrderDoneNotification($order));
             }
             

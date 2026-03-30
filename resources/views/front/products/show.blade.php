@@ -35,7 +35,7 @@
                 <div class="row">
                     <figure class="product-main-image">
                         <img id="product-zoom" 
-                             src="{{ asset($product->image ? 'storage/'.$product->image : 'assets/images/default-product.jpg') }}"> 
+                             src="{{ $product->image_url }}"> 
                       
 
                       
@@ -75,20 +75,16 @@
                 <!-- Quantity & Add to Cart -->
                 <div class="details-filter-row details-row-size">
                     <label for="qty">Qty:</label>
-                    <form action="{{ route('cart') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <div class="product-details-quantity mb-2">
-                            <input type="number" id="qty" name="quantity" class="form-control" value="1" min="1" max="10" step="1" required>
+              
+                          <div class="product-details-quantity mb-2">
+                            <input type="number" id="qty" name="quantity"  class="form-control" value="1" min="1" max="10" step="1" required>
                         </div>
                         <div class="product-details-action">
-                            <button type="submit" class="btn-product btn-cart"><span>add to cart</span></button>
+                            <button  data-id="{{$product->id}}" class="btn-product btn-cart"><span>add to cart</span></button>
                             <div class="details-action-wrapper">
-                                <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                <a href="javascript:;" class="btn-product btn-wishlist" data-id="{{$product->id}}" title="Wishlist"><span>Add to Wishlist</span></a>
                             </div>
                         </div>
-                    </form>
                 </div>
 
                 <!-- Footer: Category & Social -->
@@ -116,21 +112,21 @@
 <h3 class="text-center">{{ __('You May Also Like') }}</h3>
  <div class="tab-pane fade show active" id="top-all-tab">
                 <div class="row justify-content-center product-card">
-                    @foreach($relatedProducts as $product)
+                    @foreach($relatedProducts as $related)
                     <div class="col-6 col-md-4 col-lg-3 col-xl-5col ">
                         <div class="product product-11 text-center">
                             <figure class="product-media">
-                                <a href="{{ route('product.show', $product->slug) }}">
+                                <a href="{{ route('product.show', $related->slug) }}">
                                     <!-- Default image if not found -->
-                                    <img src="{{ $product->image_url  }}" 
-                                        alt="{{ $product->name }}" class="product-image">
+                                    <img src="{{ $related->image_url  }}" 
+                                        alt="{{ $related->name }}" class="product-image">
                                    
                                  
                                 </a>
 
                                     <div class="product-action-vertical">
                                        <a href="javascript:;" 
-                                        data-id="{{ $product->id}}"
+                                        data-id="{{ $related->id}}"
                                         class="btn-product-icon btn-wishlist">
                                             <span>Add to Wishlist</span>
                                         </a>
@@ -141,31 +137,19 @@
                             <div class="product-body">
                             
                                 <h3 class="product-title">
-                                    <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                    <a href="{{ route('product.show', $related->slug) }}">{{ $related->name }}</a>
                                 </h3><!-- End .product-title -->
                                
                                 <div class="product-price">
-                                    ${{ $product->sale_price }}
+                                    ${{ $related->sale_price }}
                                   
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
 
-                            {{-- <!-- Add to cart form -->
-                            <form id="add_to_cart_{{ $product->id }}" action="{{ route('cart') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            </form>
-
+            
                             <div class="product-action">
                                 <a href="javascript:;" 
-                                onclick="document.getElementById('add_to_cart_{{ $product->id }}').submit()" 
-                                class="btn-product btn-cart">
-                                    <span>add to cart</span>
-                                </a>
-                            </div><!-- End .product-action --> --}}
-                            <div class="product-action">
-                                <a href="javascript:;" 
-                                data-id="{{$product->id}}"
+                                data-id="{{$related->id}}"
                                 class="btn-product btn-cart" >
                                     <span>add to cart</span>
                                 </a>

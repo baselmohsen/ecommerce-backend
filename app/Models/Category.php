@@ -34,6 +34,14 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function getImageUrlAttribute()
+            {
+                if ($this->image) {
+                    return asset('storage/' . $this->image);
+                }
+        
+                return asset('assets/images/demos/demo-2/banners/banner-1.jpg');
+            }
 
     
 }

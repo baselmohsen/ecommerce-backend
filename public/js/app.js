@@ -14,12 +14,13 @@ function updateCartDropdown() {
 
 $(document).on('click', '.btn-cart', function () {
     let productId = $(this).data('id');
-
+    let quantity = $(this).closest('.details-filter-row').find('input[name="quantity"]').val();
     $.ajax({
         url: '/cart',
         method: "POST",
         data: {
-            product_id: productId
+            product_id: productId,
+            quantity: quantity
         },
         success: function (res) {
            

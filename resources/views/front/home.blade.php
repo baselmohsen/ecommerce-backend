@@ -22,7 +22,7 @@
 
                     @forelse($categories as $category)
                         <div class="col-md-6 col-lg-3">
-                            <div class="banner banner-overlay">
+                            <div class="banner banner-overlay"> 
                                 <a href="{{ route('category.products', $category->id) }}">
                                     <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="{{ $category->name }}">
                                 </a>
@@ -90,7 +90,9 @@
                                     <a href="#">{{ $product->category->name ?? 'No Category' }}</a>
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title">
-                                    <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                    <a  href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                               
+                                                        
                                 </h3><!-- End .product-title -->
                                 <div class="product-price">
                                     ${{ $product->sale_price }}

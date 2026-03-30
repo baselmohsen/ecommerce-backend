@@ -22,4 +22,20 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', '!=', 'archived');
+    }
+
+    public function scopeSearch($query, $search)
+{
+    return $query->when($search, function ($q) use ($search) {
+        $q->where(function($qq) use ($search){
+            $qq->where('first_name', 'like', "%$search%")
+               ->orWhere('last_name', 'like', "%$search%")
+               ->orWhere('email', 'like', "%$search%");
+        });
+    });
+}
 }

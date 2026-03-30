@@ -24,7 +24,7 @@ class SettingController extends Controller
     public function update(Request $request)
     {
 
-            Gate::authorize('settings.update');
+         Gate::authorize('settings.update');
 
         $request->validate([
             'pharmacy_name' => 'nullable|string|max:255',

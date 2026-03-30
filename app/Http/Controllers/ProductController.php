@@ -12,21 +12,25 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        // Get the current product with its category
         $product = Product::with('category')->where('slug', $slug)->firstOrFail();
 
-        // Get related products from the same category, excluding current product
-        $relatedProducts = Product::where('category_id', $product->category_id)
-                                ->where('id', '!=', $product->id)
-                                ->inRandomOrder()
-                                ->take(4)
-                                ->get();
+        $relatedProducts = Product::with('category') // 🔥 ADD THIS
+                ->where('category_id', $product->category_id)
+                ->where('id', '!=', $product->id)
+                ->inRandomOrder()
+                ->take(4)
+                ->get();
 
-        // Pass both to the view
-        return view('front.products.show', [
-            'product' => $product,
-            'relatedProducts' => $relatedProducts,
-        ]);
+        
+        if (request()->ajax()) {
+            return response()->json([
+                'product' => $product,
+                'relatedProducts' => $relatedProducts
+            ]);
+        }
+
+        // normal page load
+        return view('front.products.show', compact('product', 'relatedProducts'));
     }
 
 

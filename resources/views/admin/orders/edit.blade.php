@@ -27,7 +27,7 @@
             <select name="status" id="status" class="form-control">
                 <option value="new" {{ $order->status == 'new' ? 'selected' : '' }}>New</option>
                 <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing</option>
-                <option value="on_delivery" {{ $order->status == 'on_delivery' ? 'selected' : '' }}>On Delivery</option>
+                <option value="on_delivery" {{ $order->status == 'canseled' ? 'selected' : '' }}>Canseled</option>
                 <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
             </select>
         </div>
