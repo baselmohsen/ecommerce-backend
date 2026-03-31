@@ -317,3 +317,69 @@ $(document).on('keyup', '.input-search', function () {
     }, 300);
 
 });
+
+
+ $(document).on('submit', '#checkout-form', function (e) {
+
+        e.preventDefault();
+
+        let btn = $('#place-order-btn');
+        btn.prop('disabled', true).text('Processing...');
+
+        $.ajax({
+            url: '/checkout',
+            method: "POST",
+            data: $(this).serialize(),
+            success: function (response) {
+
+           
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    confirmButtonText: 'OK'
+                });
+
+                // ✅ empty form
+                $('#checkout-form')[0].reset();
+
+                // ✅ clear order summary
+                $('.table-summary tbody').html(`
+                    <tr>
+                        <td colspan="2">Cart is empty</td>
+                    </tr>
+                `);
+
+                // ✅ reset total
+                $('.table-summary tbody').html(`
+                    <tr>
+                        <td colspan="2">Cart is empty</td>
+                    </tr>
+                    <tr class="summary-total">
+                        <td>Total:</td>
+                        <td>$0</td>
+                    </tr>
+                `);
+
+            },
+            error: function (xhr) {
+
+                btn.prop('disabled', false).text('Place Order');
+
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let msg = '';
+
+                    $.each(errors, function (key, value) {
+                        msg += value[0] + '\n';
+                    });
+
+                    alert(msg);
+                } else {
+                    alert('Something went wrong!');
+                }
+            }
+        });
+
+    });
+
+

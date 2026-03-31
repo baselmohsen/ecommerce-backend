@@ -34,14 +34,18 @@ Route::group(
 
 
 
+        Route::middleware(['auth'])->group(function () {
+        Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+        Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    });
     
 
         Route::get('/', [HomeController::class,'index'])->name('home');
+        Route::get('/about', [HomeController::class,'about'])->name('about');
+        Route::get('/contact', [HomeController::class,'contact'])->name('contact');
   
         Route::get('/search', [HomeController::class, 'SearchAjax'])->name('search.ajax');
 
-
-     Route::get('profile', [HomeController::class,'profile'])->name('profile')->middleware('auth');
 
      Route::get('wishlist', [WishlistController::class,'index']);
      Route::post('wishlist', [WishlistController::class,'store'])->name('wishlist');

@@ -26,6 +26,8 @@ class CheckoutController extends Controller
         $cartItems = Cart::with('product')->where('cart_id', $id)->get();
 
         return view('front.checkout', [
+            'user'=>Auth::user(),
+            'profile'=>Auth::user()->profile,
             'cartItems' => $cartItems,
             'total' => $cartItems->sum(function ($item) {
                 return $item->product->sale_price * $item->quantity;
@@ -81,13 +83,20 @@ class CheckoutController extends Controller
             DB::commit();
              
             event(new OrderPlaced($order));
+            
+            return response()->json([
+                    'status' => 'success',
+                    'message' => ' Order Placed Successfully! '
+                ]);
 
-            return redirect()->route('checkout.success');
-                            
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Failed to place order: ' . $e->getMessage())->withInput();
-        }
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $e->getMessage()
+                ], 500);
+            }
 
         }
         public function success(){

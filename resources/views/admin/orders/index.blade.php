@@ -68,10 +68,14 @@
                             <td>${{ $order->total }}</td>
 
                             <td>
-                                   <span class="badge {{ $order->status == 'completed' ? 'badge-success' : 'badge-info' }}">
-                                        {{ trans(ucfirst($order->status)) }}
-                                    </span>
-                               
+                               <span class="badge 
+                                @if($order->status == 'completed') badge-success
+                                @elseif($order->status == 'canseled') badge-danger
+                                @else badge-info
+                                @endif
+                            ">
+                                {{ ucfirst(trans($order->status)) }}
+                            </span>
 
                             </td>
 

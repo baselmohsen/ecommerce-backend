@@ -243,15 +243,12 @@
             @if(session('success'))
             <script>
             Swal.fire({
-                toast: true,                  // Makes it a toast (small rectangle)
-                position: 'top-end',          // Top-right corner
-                icon: 'success',              // Icon
+                  toast: true,
+                position: 'top-end',
+                icon: 'success',
                 title: "{{ session('success') }}", // Message
-                showConfirmButton: false,     // No OK button
-                timer: 3000,                  // Auto close after 2.5 seconds
-                timerProgressBar: true,       // Show a progress bar
-                background: '#28a745',        // Optional: green background
-                color: '#fff',                // Text color white
+                showConfirmButton: false,
+                timer: 3000,// Text color white
             });
             </script>
             @endif

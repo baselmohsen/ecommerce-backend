@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -38,18 +39,44 @@ class HomeController extends Controller
             }
 
 
-        public function profile()
-         {
-            $user = auth()->user();
-
-            // load orders WITH items + product
-                $orders = $user->orders()->with('items')->latest()->get();
-
-                return view('front.profile.index', compact('user', 'orders'));
-            }
+     
         public static function flushCache()
         {
             Cache::forget('home_products');
             Cache::forget('home_categories');
         }
+
+
+      public function about() {
+    $team_members = [
+        [
+            'name' => 'Samanta Grey',
+            'role' => 'Founder & CEO',
+            'bio' => 'لوريم إيبسوم هو نص تجريبي.',
+            'image' => 'assets/images/team/member-1.jpg',
+            'social' => [
+                'Facebook' => '#',
+                'Twitter' => '#',
+                'Instagram' => '#',
+            ],
+        ],
+        [
+            'name' => 'Bruce Sutton',
+            'role' => 'Sales & Marketing Manager',
+            'bio' => 'لوريم إيبسوم هو نص تجريبي.',
+            'image' => 'assets/images/team/member-2.jpg',
+            'social' => [
+                'Facebook' => '#',
+                'Twitter' => '#',
+                'Instagram' => '#',
+            ],
+        ],
+    ];
+
+    return view('front.about', compact('team_members'));
+}
+        public function contact(){
+            return view('front.contact');
+        }
+
 }

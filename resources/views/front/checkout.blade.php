@@ -1,7 +1,6 @@
 @extends('layouts.front.app')
 
 @section('content')
-
 <main class="main">
 
     <!-- Header -->
@@ -32,14 +31,12 @@
         <div class="checkout">
             <div class="container">
 
-           
-           
-                <form method="POST" action="{{ route('checkout') }}">
+                <form id="checkout-form" method="POST" action="{{ route('checkout') }}">
                     @csrf
 
                     <div class="row">
 
-                        <!-- LEFT -->
+                        <!-- LEFT: Billing Details -->
                         <div class="col-lg-9">
                             <h2 class="checkout-title">{{ __('billing details') }}</h2>
 
@@ -48,49 +45,48 @@
                                     <input type="text" name="first_name"
                                            class="form-control"
                                            placeholder="{{ __('first name') }}"
-                                           value="{{ old('first_name') }}" required>
+                                           value="{{ old('first_name', $profile->first_name ?? $user->name) }}" required>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <input type="text" name="last_name"
                                            class="form-control"
                                            placeholder="{{ __('last name') }}"
-                                           value="{{ old('last_name') }}" required>
+                                           value="{{ old('last_name', $profile->last_name ?? '') }}" required>
                                 </div>
                             </div>
 
                             <input type="email" name="email"
                                    class="form-control"
                                    placeholder="{{ __('email') }}"
-                                   value="{{ old('email') }}" required>
+                                   value="{{ old('email', $user->email) }}" required>
 
                             <input type="text" name="phone"
                                    class="form-control"
                                    placeholder="{{ __('phone') }}"
-                                   value="{{ old('phone') }}" required>
+                                   value="{{ old('phone', $profile->phone ?? '') }}" required>
 
+
+                           
+                            <input type="text" name="city"
+                                           class="form-control"
+                                           placeholder="{{ __('city') }}"
+                                           value="{{ old('city', $profile->city ?? '') }}" required>
+                      
                             <input type="text" name="address"
                                    class="form-control"
                                    placeholder="{{ __('address') }}"
-                                   value="{{ old('address') }}" required>
+                                   value="{{ old('address', $profile->address ?? '') }}" required>
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <input type="text" name="city"
-                                           class="form-control"
-                                           placeholder="{{ __('city') }}"
-                                           value="{{ old('city') }}" required>
-                                </div>
-                            </div>
-
+                      
                             <textarea name="notes"
-                                      class="form-control"
+                                      class="form-control mt-2"
                                       rows="4"
                                       placeholder="{{ __('order notes') }}">{{ old('notes') }}</textarea>
 
                         </div>
 
-                        <!-- RIGHT -->
+                        <!-- RIGHT: Order Summary -->
                         <aside class="col-lg-3">
                             <div class="summary">
                                 <h3 class="summary-title">{{ __('your order') }}</h3>
@@ -113,7 +109,7 @@
                                                         {{ $item->quantity }} x ${{ $item->product->sale_price }}
                                                     </small>
                                                 </td>
-                                                <td>${{ $item->total }}</td>
+                                                <td>${{ $item->product->sale_price * $item->quantity }}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -129,8 +125,7 @@
                                 </table>
 
                                 <!-- PAYMENT -->
-                                <div class="accordion-summary">
-
+                                <div class="accordion-summary mt-3">
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="card-title">
@@ -139,12 +134,11 @@
                                             </h2>
                                         </div>
                                     </div>
-
-
                                 </div>
 
-                                <button type="submit"
-                                        class="btn btn-outline-primary-2 btn-order btn-block">
+                               <button type="submit"
+                                    id="place-order-btn"
+                                    class="btn btn-outline-primary-2 btn-order btn-block mt-3">
                                     {{ __('place order') }}
                                 </button>
 
@@ -165,5 +159,4 @@
     </div>
 
 </main>
-
 @endsection

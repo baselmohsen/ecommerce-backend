@@ -13,6 +13,31 @@
     <!-- Favicon -->
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/icons/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/icons/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/icons/favicon-16x16.png') }}">
+<link rel="manifest" href="{{ asset('assets/images/icons/site.webmanifest') }}">
+<link rel="mask-icon" href="{{ asset('assets/images/icons/safari-pinned-tab.svg') }}" color="#666666">
+<link rel="shortcut icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
+
+<meta name="apple-mobile-web-app-title" content="Molla">
+<meta name="application-name" content="Molla">
+<meta name="msapplication-TileColor" content="#cc9966">
+<meta name="msapplication-config" content="{{ asset('assets/images/icons/browserconfig.xml') }}">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css') }}">
+
+<!-- Plugins CSS File -->
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery.countdown.css') }}">
+
+<!-- Main CSS File -->
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/skins/skin-demo-2.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/demos/demo-2.css') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/icons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/icons/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/icons/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('assets/images/icons/site.webmanifest') }}">
@@ -42,7 +67,7 @@
 </head>
 
 <body>
-<header class="header">
+        <header class="header header-2 header-intro-clearance">
 
     <!-- ================= TOP HEADER ================= -->
     <div class="header-top">
@@ -101,40 +126,23 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="{{ route('wishlist') }}">
-                                    <i class="icon-heart-o"></i>
-                                    {{ __('wishlist') }} 
-                                  
-                                    
-                                       {{-- ({{ $wishlistCount }})  --}}
-                               
-                                    
-                                </a>
-                            </li>
 
-                            <li><a href="#">{{ __('about us') }}</a></li>
-                            <li><a href="#">{{ __('contact us') }}</a></li>
+                            <li><a href="{{route('about')}}">{{ __('about us') }}</a></li>
+                            <li><a href="{{route('contact')}}">{{ __('contact us') }}</a></li>
 
                             <!-- Auth -->
                             @if(Auth::check())
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown">
-                                        <i class="icon-user"></i> {{ Auth::user()->name }}
-                                    </a>
-
-                                    <div class="dropdown-menu">
-                                        <a href="{{ route('profile') }}" class="dropdown-item">
-                                            {{ __('profile') }}
-                                        </a>
-
-                                        <form method="POST" action="{{ route('logout') }}">
+                                        <i class="icon-user"></i> {{ Auth::user()->name }} /    <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit" class="dropdown-item">
                                                 {{ __('logout') }}
                                             </button>
                                         </form>
-                                    </div>
+                                    </a>
+
+                                
                                 </li>
                             @else
                                 <li>
@@ -180,17 +188,42 @@
             </div>
 
             <!-- RIGHT -->
-               
-        <div class="header-right">
-            <div class="header-search">
-                <a href="javascript:;" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                <form action="#" method="get">
-                    <div class="header-search-wrapper">
-                        <label for="q" class="sr-only">Search</label>
-                        <input type="search" class="form-control input-search" name="q" id="q" placeholder="{{__('Search in...')}}" required>
-                    </div><!-- End .header-search-wrapper -->
-                </form>
-            </div><!-- End .header-search -->
+                  <div class="header-center">
+                        <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                               <a href="javascript:;" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+                             <form action="#" method="get">
+                                <div class="header-search-wrapper search-wrapper-wide">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control input-search" name="q" id="q" placeholder="{{__('Search product ... ')}}" required>
+                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+                    </div>
+
+
+
+
+          <div class="header-right">
+                        <div class="account">
+                            <a href="{{route('profile')}}" title="My account">
+                                <div class="icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <p>{{ __('Account') }}</p>
+                            </a>
+                        </div><!-- End .compare-dropdown -->
+
+                        <div class="wishlist">
+                            <a href="{{route('wishlist')}}" title="Wishlist">
+                                <div class="icon">
+                                    <i class="icon-heart-o"></i>
+                                </div>
+                                <p>{{ __('Wishlist') }}</p>
+                            </a>
+                        </div><!-- End .compare-dropdown -->
+
+                              
 
                     @if (!request()->routeIs('cart'))
                         <x-cart-dropdown />
