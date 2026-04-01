@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as FrontProductController ;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\ProfileController as AdminProfileController ;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -104,6 +105,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         ->name('settings');
 
     Route::post('/settings', [SettingController::class, 'update']);
+
+     Route::get('/profile', [AdminProfileController::class, 'profile'])->name('profile');
+
+    Route::post('/profile', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
 
 });
 

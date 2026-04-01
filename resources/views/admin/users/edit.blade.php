@@ -48,15 +48,53 @@
 
                 {{-- Permissions --}}
                 <div class="form-group mt-3">
-                    <label>{{ trans('permissions') }}</label>
-                    <div>
-                        @foreach ($permissions as $code => $label)
-                            <div class="form-check">
-                                <input type="checkbox" name="permissions[]" value="{{ $code }}" class="form-check-input" id="perm_{{ $code }}"
-                                    {{ in_array($code, $userPermissions) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="perm_{{ $code }}">{{ $label }}</label>
+                    <label><strong>{{ trans('permissions') }}</strong></label>
+
+                    <div class="row">
+
+                        @foreach ($groupedPermissions as $group => $perms)
+
+                            <div class="col-md-4">
+
+                                <div class="card shadow-sm mb-3" style="border:1px solid #eee; border-radius:10px;">
+
+                                    <!-- HEADER -->
+                                    <div class="card-header d-flex justify-content-between align-items-center"
+                                         style="background:#f7f7f7; border-bottom:1px solid #eee;">
+
+                                        <strong>{{ ucfirst($group) }}</strong>
+
+                                        <input type="checkbox"
+                                               class="select-all"
+                                               data-group="{{ $group }}">
+                                    </div>
+
+                                    <!-- BODY -->
+                                    <div class="card-body">
+
+                                        @foreach ($perms as $key => $label)
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox"
+                                                       name="permissions[]"
+                                                       value="{{ $key }}"
+                                                       class="form-check-input perm-{{ $group }}"
+                                                       id="perm_{{ $key }}"
+                                                       {{ in_array($key, $userPermissions) ? 'checked' : '' }}>
+
+                                                <label class="form-check-label" for="perm_{{ $key }}">
+                                                    {{ $label }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+
+                                </div>
+
                             </div>
+
                         @endforeach
+
                     </div>
                 </div>
 
@@ -76,3 +114,26 @@
 </section>
 
 @endsection
+
+@push('scripts')
+<script>
+document.querySelectorAll('.select-all').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        let group = this.dataset.group;
+
+        document.querySelectorAll('.perm-' + group).forEach(function (el) {
+            el.checked = checkbox.checked;
+        });
+    });
+});
+
+// Auto-check "select all" if all group permissions are already checked
+document.querySelectorAll('.select-all').forEach(function(checkbox) {
+    let group = checkbox.dataset.group;
+    let items = document.querySelectorAll('.perm-' + group);
+    if ([...items].every(el => el.checked)) {
+        checkbox.checked = true;
+    }
+});
+</script>
+@endpush

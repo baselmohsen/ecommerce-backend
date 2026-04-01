@@ -47,8 +47,11 @@ class AuthenticatedSessionController extends Controller
                 ->update(['user_id' => $user_id]);
         }
 
-        if ($user->type === 'super_admin' || $user->type === 'admin') {
+        if ($user->type === 'super_admin') {
             return redirect()->route('admin.dashboard');
+        }
+        if ($user->type === 'admin') {
+            return redirect()->route('admin.profile');
         }
 
         return redirect()->route('home');

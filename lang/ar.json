@@ -258,5 +258,27 @@
     "Example Social": "مثال: {\"Facebook\":\"https://facebook.com\",\"Twitter\":\"https://twitter.com\"}",
     "Save Profile": "حفظ الملف الشخصي",
     "No Orders": "لا توجد طلبات بعد.",
-    "Go Shop": "اذهب للتسوق"
+    "Go Shop": "اذهب للتسوق",
+
+    "Users": "المستخدمون",
+    "Products": "المنتجات",
+    "Categories": "الفئات",
+    "Revenue": "الإيرادات",
+    "Monthly Orders & Revenue": "الطلبات والإيرادات الشهرية",
+    "Top 20 Selling Products": "أفضل 20 منتج مبيعًا",
+    "Jan": "يناير",
+    "Feb": "فبراير",
+    "Mar": "مارس",
+    "Apr": "أبريل",
+    "May": "مايو",
+    "Jun": "يونيو",
+    "Jul": "يوليو",
+    "Aug": "أغسطس",
+    "Sep": "سبتمبر",
+    "Oct": "أكتوبر",
+    "Nov": "نوفمبر",
+    "Dec": "ديسمبر",
+    "Number of Orders": "عدد الطلبات",
+    "Revenue (EGP)": "الإيرادات (جنيه)",
+    "Quantity Sold": "الكمية المباعة"
 }

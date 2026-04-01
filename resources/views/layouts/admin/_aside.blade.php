@@ -4,14 +4,15 @@
 <aside class="app-sidebar">
     <div class="app-sidebar__user">
         <img class="app-sidebar__user-avatar"
-            src="{{ auth()->user()->type === 'super_admin' 
-            ? asset('admin_assets/images/super_admin.png') 
-            : asset('admin_assets/images/default.png') }}"
-
-          alt="User Image">
+     src="{{ auth()->user()->profile->image_url ?? asset('admin_assets/images/default.png') }}"
+     alt="User Image">
         <div>
-            <p class="app-sidebar__user-name">{{ auth()->user()->name }}</p>
-        </div>
+    <p class="app-sidebar__user-name">
+        {{ optional(auth()->user()->profile)->first_name && optional(auth()->user()->profile)->last_name
+            ? auth()->user()->profile->first_name . ' ' . auth()->user()->profile->last_name
+            : auth()->user()->name }}
+    </p>     
+   </div>
     </div>
 
 <ul class="app-menu">
@@ -27,6 +28,17 @@
         </a>
     </li>
     @endcan
+
+
+       <li>
+        <a class="app-menu__item {{ request()->is('*profile*') ? 'active' : '' }}"
+           href="{{ route('admin.profile') }}">
+            <i class="app-menu__icon fa fa-user"></i>
+            <span class="app-menu__label">{{ trans('profile') }}</span>
+        </a>
+    </li>
+
+
     {{-- Categories --}}
     @can('viewAny', App\Models\Category::class)
     <li>
@@ -81,6 +93,7 @@
         </a>
     </li>
     @endcan
+ 
 
 </ul>
 </aside>

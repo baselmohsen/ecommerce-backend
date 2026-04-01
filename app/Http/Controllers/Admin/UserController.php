@@ -29,8 +29,16 @@ class UserController extends Controller
     // Show create page
     public function create()
     {
-        $permissions = config('permissions');
-        return view('admin.users.create', compact('permissions'));
+       $permissions = config('permissions');
+
+        $groupedPermissions = [];
+
+        foreach ($permissions as $key => $label) {
+            $group = explode('.', $key)[0]; // categories, products, etc.
+            $groupedPermissions[$group][$key] = $label;
+        }
+
+        return view('admin.users.create', compact('groupedPermissions'));
     }
 
     // Store new user
@@ -83,7 +91,14 @@ class UserController extends Controller
     // Show edit page
     public function edit(User $user)
     {
-        $permissions = config('permissions');
+            $permissions = config('permissions');
+
+            $groupedPermissions = [];
+
+            foreach ($permissions as $key => $label) {
+                $group = explode('.', $key)[0];
+                $groupedPermissions[$group][$key] = $label;
+            }
 
         // Get user permissions as array
         $userPermissions = DB::table('users_permissions')
@@ -91,7 +106,9 @@ class UserController extends Controller
                              ->pluck('permission')
                              ->toArray();
 
-        return view('admin.users.edit', compact('user', 'permissions', 'userPermissions'));
+
+
+        return view('admin.users.edit', compact('user', 'groupedPermissions', 'userPermissions'));
     }
 
     // Update user

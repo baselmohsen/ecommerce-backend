@@ -22,7 +22,7 @@ return [
     "users.delete" => "Delete Users",
 
     // Orders
-    "orders.index"  => "Show Orders",
+    "orders.index"  => "Show All Orders",
     "orders.update" => "Update Orders",
     "orders.delete" => "Delete Orders",
     "orders.show" => "Show Orders",

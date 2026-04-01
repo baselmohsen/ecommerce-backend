@@ -20,7 +20,7 @@ class NewOrderNotification extends Notification implements ShouldBroadcast
     // القنوات
     public function via($notifiable)
     {
-        return ['database','broadcast'];
+        return ['broadcast'];
     }
 
     // Mail
@@ -33,15 +33,15 @@ class NewOrderNotification extends Notification implements ShouldBroadcast
     //         ->action('View Order', url('/admin/orders/' . $this->order->id))
     //         ->line('Thank you!');
     // }
-    public function toDatabase($notifiable)
-    {
-            return [
-                'order_id' => $this->order->id,
-                'total'    => $this->order->total,
-                'message'  => 'New order created',
-                'url'  => url('/admin/orders/' . $this->order->id),
-            ];
-        }
+    // public function toDatabase($notifiable)
+    // {
+    //         return [
+    //             'order_id' => $this->order->id,
+    //             'total'    => $this->order->total,
+    //             'message'  => 'New order created',
+    //             'url'  => url('/admin/orders/' . $this->order->id),
+    //         ];
+    //     }
 
    public function toBroadcast($notifiable)
     {
