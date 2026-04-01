@@ -16,7 +16,9 @@ class WishlistController extends Controller
     public function index()
     {
         $id = App::make('wishlist.id'); // get wishlist id from cookie
-        $wishlistItems = Wishlist::with('product')->where('wishlist_id', $id)->get();
+        $wishlistItems = Wishlist::with('product')->where('wishlist_id', $id)
+        ->Orwhere('user_id',Auth::id())
+        ->get();
            // dd($wishlistItems);
         return view('front.wishlist', compact('wishlistItems'));
     }

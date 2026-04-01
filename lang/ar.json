@@ -280,5 +280,7 @@
     "Dec": "ديسمبر",
     "Number of Orders": "عدد الطلبات",
     "Revenue (EGP)": "الإيرادات (جنيه)",
-    "Quantity Sold": "الكمية المباعة"
+    "Quantity Sold": "الكمية المباعة",
+    "out of stock": "نفذ من المخزون",
+    "add to cart": "أضف إلى السلة"
 }

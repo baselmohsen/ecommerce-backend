@@ -82,7 +82,7 @@
                             <!-- Remove from Wishlist -->
                             <td class="remove-col">
                                 <button class="btn-remove btn-remove-wishlist"  data-id="{{ $item->id }}" >
-                                    <i class="icon-close"></i> {{ __('Remove') }}
+                                    <i class="icon-close"></i> 
                                 </button>
                             </td>
                         </tr>

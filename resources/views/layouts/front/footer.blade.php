@@ -122,10 +122,17 @@
 
 <!-- LOGIN MODAL -->
 <div class="modal fade" id="signin-modal" tabindex="-1">
+      
+    
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-
+      <!-- Show error -->
+                @if (session('errorr'))
+                    <div class="alert alert-danger">
+                        {{ session('errorr') }}
+                    </div>
+                @endif
                 <button type="button" class="close" data-dismiss="modal">
                     <span><i class="icon-close"></i></span>
                 </button>
@@ -267,10 +274,20 @@
                     allowOutsideClick: false,        // can't click outside to close
                     allowEscapeKey: false    
             });
+
+
+
             </script>
 
-         
             @endif
+                     <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        @if(session('errorr'))
+                            var signinModal = new bootstrap.Modal(document.getElementById('signin-modal'));
+                            signinModal.show();
+                        @endif
+                    });
+                </script>
 
 
 

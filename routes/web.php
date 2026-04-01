@@ -35,9 +35,11 @@ Route::group(
 
 
 
-        Route::middleware(['auth'])->group(function () {
+        Route::middleware(['auth','verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
         Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        Route::post('checkout', [CheckoutController::class,'store'])->name('checkout');
+
     });
     
 
@@ -61,7 +63,6 @@ Route::group(
 
      Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
      Route::get('checkout', [CheckoutController::class,'index']);
-     Route::post('checkout', [CheckoutController::class,'store'])->name('checkout')->middleware('auth');;
 
      Route::get('product/{slug}', [FrontProductController::class,'show'])->name('product.show');
      Route::get('category-products/{id}', [FrontProductController::class,'categoryPproducts'])->name('category.products');
@@ -69,19 +70,10 @@ Route::group(
     Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->name('auth.socilaite.redirect');
     Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->name('auth.socilaite.callback');
 
-    
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__.'/auth.php';
 
 
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// })->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');

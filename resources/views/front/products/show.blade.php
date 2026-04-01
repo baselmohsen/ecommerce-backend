@@ -10,17 +10,7 @@
                         <li class="breadcrumb-item active" aria-current="page">Default</li>
                     </ol>
 
-                    <nav class="product-pager ml-auto" aria-label="Product">
-                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
-                            <i class="icon-angle-left"></i>
-                            <span>Prev</span>
-                        </a>
-
-                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
-                            <span>Next</span>
-                            <i class="icon-angle-right"></i>
-                        </a>
-                    </nav><!-- End .pager-nav -->
+                 
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -51,22 +41,17 @@
             <div class="product-details">
                 <h1 class="product-title">{{ $product->name }}</h1>
 
-                <div class="ratings-container">
-                    <div class="ratings">
-                        <div class="ratings-val" style="width: {{ $product->rating ?? 0 * 20 }}%;"></div>
-                    </div>
-                    <a class="ratings-text" href="#product-review-link" id="review-link">({{ $product->reviews_count ?? 0 }} Reviews)</a>
-                </div>
-
-                <div class="product-price">
-                    ${{ $product->sale_price }}
-                    @if($product->price > $product->sale_price)
-                        <span class="old-price">${{ $product->price }}</span>
-                    @endif
-                </div>
-
+           
                 <div class="product-content">
                     <p>{{ $product->description }}</p>
+                </div>
+
+
+                <div class="product-price">
+                    ${{ $product->sale_price       }}
+                    @if($product->price > $product->sale_price)
+                        <span class="old-price">   ${{ $product->price }}</span>
+                    @endif
                 </div>
 
 
@@ -74,11 +59,10 @@
 
                 <!-- Quantity & Add to Cart -->
                 <div class="details-filter-row details-row-size">
-                    <label for="qty">Qty:</label>
-              
-                          <div class="product-details-quantity mb-2">
-                            <input type="number" id="qty" name="quantity"  class="form-control" value="1" min="1" max="10" step="1" required>
-                        </div>
+                
+      
+
+
                         <div class="product-details-action">
                             <button  data-id="{{$product->id}}" class="btn-product btn-cart"><span>add to cart</span></button>
                             <div class="details-action-wrapper">
@@ -148,11 +132,15 @@
 
             
                             <div class="product-action">
-                                <a href="javascript:;" 
-                                data-id="{{$related->id}}"
-                                class="btn-product btn-cart" >
-                                    <span>add to cart</span>
-                                </a>
+                               <a href="javascript:;" 
+                    data-id="{{ $product->id }}"
+                    class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
+                    
+                        <span>
+                            {{ $product->stock <= 0 ? __('out of stock') : __('add to cart') }}
+                        </span>
+                        
+                    </a>
                             </div><!-- End .product-action -->
                         </div><!-- End .product -->
                     </div><!-- End .col -->

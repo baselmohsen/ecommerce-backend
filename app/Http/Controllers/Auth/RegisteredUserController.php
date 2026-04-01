@@ -55,6 +55,9 @@ class RegisteredUserController extends Controller
                         ->update(['user_id' => $user->id]);
                 }
 
-        return redirect(RouteServiceProvider::HOME);
+       
+    // ✅ Redirect to verification notice instead of home
+    return redirect()->route('verification.notice')
+        ->with('success', 'Please verify your email before continuing.');
     }
 }

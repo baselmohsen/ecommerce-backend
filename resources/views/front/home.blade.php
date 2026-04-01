@@ -67,6 +67,10 @@
                     <div class="col-6 col-md-4 col-lg-3 col-xl-5col ">
                         <div class="product product-11 text-center">
                             <figure class="product-media">
+                                @if($product->stock <= 0)
+                                <span class="product-label label-out">{{__('Out of Stock')}}</span>
+                                @endif
+
                                 <a href="{{ route('product.show', $product->slug) }}">
                                     <!-- Default image if not found -->
                                     <img src="{{ $product->image_url  }}" 
@@ -115,13 +119,17 @@
                                     <span>add to cart</span>
                                 </a>
                             </div><!-- End .product-action --> --}}
-                            <div class="product-action">
-                                <a href="javascript:;" 
-                                data-id="{{$product->id}}"
-                                class="btn-product btn-cart" >
-                                    <span>add to cart</span>
-                                </a>
-                            </div><!-- End .product-action -->
+                  <div class="product-action">
+                    <a href="javascript:;" 
+                    data-id="{{ $product->id }}"
+                    class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
+                    
+                        <span>
+                            {{ $product->stock <= 0 ? __('out of stock') : __('add to cart') }}
+                        </span>
+                        
+                    </a>
+                </div>
                         </div><!-- End .product -->
                     </div><!-- End .col -->
                     @endforeach
@@ -138,3 +146,20 @@
 
 @endsection
   
+
+{{-- @push('styles')
+<style>
+    .stock-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 10;
+}
+</style>
+@endpush --}}

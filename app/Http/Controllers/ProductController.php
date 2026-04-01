@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function categoryPproducts($id){
 
             $category = Category::findOrFail($id);
-            $products = $category->products()->paginate(9);
+            $products = $category->products()->paginate(20);
             //dd($products);
             return view('front.categoryProducts', compact('products','category'));
 

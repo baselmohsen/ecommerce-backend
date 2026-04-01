@@ -31,12 +31,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
+     try {
         $request->authenticate();
 
         $request->session()->regenerate();
 
         $user = Auth::user();
 
+        // ✅ Email verification check
+        if (!$user->hasVerifiedEmail()) {
+
+            return redirect()->route('verification.notice')
+                ->with('error', 'Please verify your email first.');
+        }
         
         $user_id = Auth::id();
         $cart_id = Cookie::get('cart_id');
@@ -53,7 +61,9 @@ class AuthenticatedSessionController extends Controller
         if ($user->type === 'admin') {
             return redirect()->route('admin.profile');
         }
-
+            } catch (\Exception $e) {
+                    return redirect()->back()->with('errorr', 'Invalid credentials.');
+                }
         return redirect()->route('home');
     }
 

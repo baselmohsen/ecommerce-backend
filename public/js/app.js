@@ -13,6 +13,13 @@ function updateCartDropdown() {
 
 
 $(document).on('click', '.btn-cart', function () {
+
+     
+    if ($(this).hasClass('disable')) {
+        e.preventDefault();
+        return false;
+    }
+
     let productId = $(this).data('id');
     let quantity = $(this).closest('.details-filter-row').find('input[name="quantity"]').val();
     $.ajax({
@@ -56,7 +63,7 @@ $(document).on('click', '.btn-remove-cart', function () {
     
 
     $.ajax({
-        url: "cart/remove/" + id,
+        url: "/cart/remove/" + id,
         method: "POST",
         data: {
             _method: "DELETE"
@@ -381,5 +388,6 @@ $(document).on('keyup', '.input-search', function () {
         });
 
     });
+
 
 

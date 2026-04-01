@@ -99,7 +99,7 @@
                                                     </span>
                                                 @endif
 
-                                                <a href="{{ route('product.show', $product->id) }}">
+                                                <a href="{{ route('product.show', $product->slug) }}">
                                                     <img 
                                                         src="{{ asset('storage/' . $product->image) }}" 
                                                         alt="{{ $product->name }}" 
@@ -108,22 +108,24 @@
                                                 </a>
 
                                                 <div class="product-action-vertical">
-                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
-                                                        <span>add to wishlist</span>
+                                                            <a href="javascript:;" 
+                                                    data-id="{{ $product->id}}"
+                                                    class="btn-product-icon btn-wishlist">
+                                                        <span>Add to Wishlist</span>
                                                     </a>
                                                   
                                                 </div>
 
-                                                <form id="add_to_cart_{{ $product->id }}" action="{{ route('cart') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                </form>
+                                                
 
                                                 <div class="product-action">
                                                     <a href="javascript:;" 
-                                                    onclick="document.getElementById('add_to_cart_{{ $product->id }}').submit()" 
-                                                    class="btn-product btn-cart">
-                                                        <span>add to cart</span>
+                                                        data-id="{{ $product->id }}"
+                                                        class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
+                                                        
+                                                            <span>
+                                                                {{ $product->stock <= 0 ? __('out of stock') : __('add to cart') }}
+                                                            </span>
                                                     </a>
                                                 </div>
 
