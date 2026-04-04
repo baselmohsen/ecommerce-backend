@@ -1,0 +1,212 @@
+/* =========================
+   GLOBAL COLORS
+========================= */
+:root {
+    --main-color: #013E7D;   /* blue */
+    --hover-color: #013E7D;  /* darker blue */
+    --text-color: #ffffff;
+    --white: #ffffff;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    color: var(--text-color);
+    background-color: var(--white);
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+/* =========================
+   BUTTONS (ALL)
+========================= */
+.btn {
+    transition: all 0.3s ease;
+}
+
+/* Primary buttons */
+.btn-primary {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+}
+
+/* Outline buttons (like Checkout) */
+.btn-outline-primary-2 {
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    background-color: transparent;
+}
+
+.btn-outline-primary-2:hover {
+    background-color: var(--main-color);
+    color: var(--white);
+}
+
+/* =========================
+   ICONS
+========================= */
+.icon {
+    color: var(--main-color);
+}
+
+.icon:hover {
+    color: var(--hover-color);
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+.dropdown-menu {
+    border-radius: 8px;
+}
+
+.dropdown-cart-products .product:hover {
+    background-color: #f8f9fa;
+}
+
+/* =========================
+   CART COUNT
+========================= */
+.cart-count {
+    background-color: var(--main-color);
+    color: var(--white);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1, h2, h3, h4, h5 {
+    color: var(--text-color);
+}
+
+/* =========================
+   GENERAL HOVER EFFECT
+========================= */
+button:hover,
+.btn:hover {
+    transform: translateY(-1px);
+}
+/* =========================
+   FORCE BLUE THEME BUTTONS
+========================= */
+
+/* Checkout button */
+.btn-outline-primary-2,
+.btn-outline-white {
+    color: #013E7D !important;
+    border-color: #013E7D !important;
+    background-color: transparent !important;
+}
+
+/* Hover */
+.btn-outline-primary-2:hover,
+.btn-outline-primary-2:focus,
+.btn-outline-white:hover,
+.btn-outline-white:focus {
+    background-color: #013E7D !important;
+    border-color: #013E7D !important;
+    color: #fff !important;
+}
+
+/* Add to cart button */
+.btn-product.btn-cart {
+    color: #013E7D !important;
+}
+
+/* Hover for add to cart */
+.btn-product.btn-cart:hover {
+    background-color: #013E7D !important;
+    color: #fff !important;
+}
+
+/* Banner button (Discover Now) */
+.banner-link {
+    border-color: #013E7D !important;
+    color: #013E7D !important;
+}
+
+.banner-link:hover {
+    background-color: #013E7D !important;
+    color: #fff !important;
+}
+a:hover {
+    color: #013E7D !important;
+}
+/* =========================
+   WISHLIST BUTTON
+========================= */
+
+/* Normal state */
+.btn-product-icon.btn-wishlist {
+    color: #013E7D !important;
+    border: 1px solid #013E7D !important;
+    background-color: transparent !important;
+}
+
+/* Icon inside */
+.btn-product-icon.btn-wishlist i {
+    color: #013E7D !important;
+}
+
+/* Hover state */
+.btn-product-icon.btn-wishlist:hover {
+    background-color: #013E7D !important;
+    color: #fff !important;
+    border-color: #013E7D !important;
+}
+
+/* Hover icon */
+.btn-product-icon.btn-wishlist:hover i {
+    color: #fff !important;
+}
+
+/* =========================
+   CART ICON
+========================= */
+
+/* Cart icon */
+.icon-shopping-cart {
+    color: #013E7D !important;
+}
+
+/* Hover (optional) */
+.icon-shopping-cart:hover {
+    color: #012f5c !important; /* darker blue */
+}
+
+/* =========================
+   CART COUNT BADGE
+========================= */
+
+.cart-count {
+    background-color: #013E7D !important;
+    color: #fff !important;
+    border-radius: 50%;
+    padding: 4px 7px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.product-price{
+    color: #013E7D !important;
+
+}
+h2{
+      color: #013E7D !important;
+}

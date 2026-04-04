@@ -45,6 +45,7 @@
                             <th>{{ trans('name') }}</th>
                             <th>{{ trans('description') }}</th>
                             <th>{{ trans('parent') }}</th>
+                            <th>{{ trans('# products') }}</th>
                             <th>{{ trans('actions') }}</th>
                         </tr>
                     </thead>
@@ -55,7 +56,8 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->description }}</td>
                             <td>{{ $category->parent ? $category->parent->name : '-' }}</td>
-                          
+                            <td>{{ $category->products->count() }}</td>
+
                             <td>
                                 {{-- Edit Button --}}
                                 @can('update', $category)

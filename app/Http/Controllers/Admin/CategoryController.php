@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -50,6 +51,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
+        HomeController::flushCache();
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category created successfully');
     }
@@ -84,6 +86,7 @@ class CategoryController extends Controller
 
         $category->update($data);
 
+            HomeController::flushCache();
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category updated successfully');
     }
@@ -99,6 +102,7 @@ class CategoryController extends Controller
 
         $category->delete();
 
+        HomeController::flushCache();
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category deleted successfully');
     }

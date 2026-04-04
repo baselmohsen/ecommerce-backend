@@ -50,6 +50,11 @@
                     <input type="number" name="stock" class="form-control" value="{{ old('stock', $product->stock) }}">
                 </div>
 
+                <div class="form-group">
+                    <label>{{ trans('is trendy') }}</label>
+                    <input type="checkbox" name="is_trendy"  value="1" {{ old('is_trendy', $product->is_trendy) ? 'checked' : '' }}>
+                </div>
+
                 {{-- Expiry Date --}}
                 <div class="form-group">
                     <label>{{ trans('expiry date') }}</label>

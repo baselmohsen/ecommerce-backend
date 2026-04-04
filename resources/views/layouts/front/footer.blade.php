@@ -155,55 +155,66 @@
 
                         <div class="tab-content">
 
-                            <!-- LOGIN -->
-                            <div class="tab-pane fade show active" id="signin">
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
+                        <!-- LOGIN -->
+<div class="tab-pane fade show active" id="signin">
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-                                    <div class="form-group">
-                                        <label>{{ __('email') }}</label>
-                                        <input type="text" name="email" class="form-control" required>
-                                    </div>
+        <!-- Email -->
+        <div class="form-group">
+            <label>{{ __('Email') }}</label>
+            <input type="text" name="email" class="form-control" required>
+        </div>
 
-                                    <div class="form-group">
-                                        <label>{{ __('password') }}</label>
-                                        <input type="password" name="password" class="form-control" required>
-                                    </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label>{{ __('Password') }}</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
 
-                                    <div class="form-footer">
-                                        <button type="submit" class="btn btn-outline-primary-2">
-                                            <span>{{ __('login') }}</span>
-                                        </button>
+        <!-- Footer -->
+        <div class="form-footer d-flex justify-content-between align-items-center">
+            <div>
+                <label>
+                    <input type="checkbox" name="remember">
+                    {{ __('Remember me') }}
+                </label>
+            </div>
 
-                                        <label>
-                                            <input type="checkbox" name="remember">
-                                            {{ __('remember me') }}
-                                        </label>
+            <!-- Corrected forgot password link -->
+            <div>
+                <a href="{{ route('password.request') }}" class="forgot-password">
+                   <p> {{ __('Forgot password?') }}</p>
+                </a>
+            </div>
+        </div>
 
-                                        <a href="{{ route('password.request') }}">
-                                            {{ __('forgot password') }}
-                                        </a>
-                                    </div>
-                                </form>
+        <!-- Submit button -->
+        <div class="form-submit mt-3">
+            <button type="submit" class="btn btn-outline-primary-2 w-100">
+                <span>{{ __('Login') }}</span>
+            </button>
+        </div>
+    </form>
 
-                                <p class="text-center">{{ __('or login with') }}</p>
+    <p class="text-center my-3">{{ __('or login with') }}</p>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <a href="{{route('auth.socilaite.redirect','google')}}" class="btn btn-login btn-g">
-                                            <i class="icon-google"></i>
-                                            {{ __('login google') }}
-                                        </a>
-                                    </div>
+    <div class="row g-2">
+        <div class="col-sm-6">
+            <a href="{{ route('auth.socilaite.redirect','google') }}" class="btn btn-login btn-g w-100">
+                <i class="icon-google"></i>
+                {{ __('Login with Google') }}
+            </a>
+        </div>
 
-                                    <div class="col-sm-6">
-                                        <a href="{{route('auth.socilaite.redirect','facebook')}}" class="btn btn-login btn-f">
-                                            <i class="icon-facebook-f"></i>
-                                            {{ __('login facebook') }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="col-sm-6">
+            <a href="{{ route('auth.socilaite.redirect','facebook') }}" class="btn btn-login btn-f w-100">
+                <i class="icon-facebook-f"></i>
+                {{ __('Login with Facebook') }}
+            </a>
+        </div>
+    </div>
+</div>
 
                             <!-- REGISTER -->
                             <div class="tab-pane fade" id="register">
@@ -239,12 +250,20 @@
 <script src="{{ asset('assets/js/jquery.plugin.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+
 <!-- before closing body -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Main JS File -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/demos/demo-2.js') }}"></script>
+    <script  src="{{ asset('assets/js/nouislider.min.js') }}"></script>
 
+<script src="{{ asset('assets/js/wNumb.js') }}"></script>
+
+<script src="{{ asset('assets/js/nouislider.min.js') }}"></script>
+
+{{-- Main JS --}}
 <script src="{{ asset('js/app.js') }}"></script>
 
             @if(session('success'))
@@ -274,11 +293,21 @@
                     allowOutsideClick: false,        // can't click outside to close
                     allowEscapeKey: false    
             });
-
-
-
             </script>
+            @endif
 
+            @if(session('auth_message'))
+            <script>
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: "{{ session('auth_message') }}",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    background: 'white'
+                });
+            </script>
             @endif
                      <script>
                     document.addEventListener('DOMContentLoaded', function() {

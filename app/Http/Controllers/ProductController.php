@@ -38,8 +38,11 @@ class ProductController extends Controller
 
             $category = Category::findOrFail($id);
             $products = $category->products()->paginate(20);
-            //dd($products);
+           
+            
             return view('front.categoryProducts', compact('products','category'));
 
     }
+
+
 }

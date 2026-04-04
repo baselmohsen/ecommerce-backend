@@ -48,6 +48,7 @@
                             <th>{{ trans('price') }}</th>
                             <th>{{ trans('sale price') }}</th>
                             <th>{{ trans('stock') }}</th>
+                             <th>{{ trans('is trendy') }}</th>
                             <th>{{ trans('expiry_date') }}</th>
                             <th>{{ trans('actions') }}</th>
                         </tr>
@@ -62,6 +63,7 @@
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->sale_price }}</td>
                             <td>{{ $product->stock }}</td>
+                            <td>{{ $product->is_trendy ? 'Yes' : 'No' }}</td>
                             <td>{{ $product->expiry_date ?? '-' }}</td>
                           
                             <td>

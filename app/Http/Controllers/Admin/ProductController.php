@@ -61,6 +61,7 @@ class ProductController extends Controller
             'stock'       => 'required|integer',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'expiry_date' => 'nullable|date',
+            'is_trendy'   => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -110,6 +111,7 @@ class ProductController extends Controller
             'stock'       => 'required|integer',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'expiry_date' => 'nullable|date',
+            'is_trendy'   => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {

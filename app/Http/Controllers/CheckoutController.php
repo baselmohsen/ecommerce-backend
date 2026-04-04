@@ -18,10 +18,7 @@ class CheckoutController extends Controller
     {
 
 
-           if (!Auth::check()) {
-        // Flash message with login link
-                return redirect()->back()->with('error', 'You must <a href="'.route('login').'">Login</a> to proceed to checkout.');
-            }
+    
         $id = App::make('cart.id');
         $cartItems = Cart::with('product')->where('cart_id', $id)->get();
 
@@ -99,7 +96,7 @@ class CheckoutController extends Controller
             }
 
         }
-        public function success(){
-            return  view('front.success');
-        }
+        // public function success(){
+        //     return  view('front.success');
+        // }
 }

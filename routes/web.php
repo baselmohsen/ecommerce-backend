@@ -35,10 +35,12 @@ Route::group(
 
 
 
-        Route::middleware(['auth','verified'])->group(function () {
+        Route::middleware(['authcheck','verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
         Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
         Route::post('checkout', [CheckoutController::class,'store'])->name('checkout');
+         Route::get('checkout', [CheckoutController::class,'index']);
+
 
     });
     
@@ -61,8 +63,7 @@ Route::group(
      Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 
 
-     Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
-     Route::get('checkout', [CheckoutController::class,'index']);
+    //  Route::get('success', [CheckoutController::class,'success'])->name('checkout.success');
 
      Route::get('product/{slug}', [FrontProductController::class,'show'])->name('product.show');
      Route::get('category-products/{id}', [FrontProductController::class,'categoryPproducts'])->name('category.products');

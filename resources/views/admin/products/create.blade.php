@@ -57,6 +57,11 @@
                     <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date') }}">
                 </div>
 
+                <div class="form-group">
+                    <label>{{ trans('is trendy') }}</label>
+                    <input type="checkbox" name="is_trendy"  value="1" {{ old('is_trendy') ? 'checked' : '' }}>
+                </div>
+
                 {{-- Image --}}
                 <div class="form-group">
                     <label>{{ trans('image') }}</label>

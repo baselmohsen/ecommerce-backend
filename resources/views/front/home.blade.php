@@ -6,160 +6,149 @@
 
     <div class="mb-3 mb-lg-5"></div>
 
-    <div class="banner-group">
-       <div class="container">
-    <div class="row">
 
-        
-      <div class="mb-3 mb-lg-5"></div>
-      
-      <div class="banner-group">
-            <div class="heading heading-center mb-3">
-                        <h2 class="title"> {{__('Our Categories')}}</h2>
+    {{-- ===========================
+        SHOP BY CATEGORIES BANNERS (Carousel)
+    ============================ --}}
+        <div class="container categories pt-6">
+            <h2 class="title-lg text-center mb-4">{{ __('Shop by Categories') }}</h2>
+
+            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                data-owl-options='{
+                    "nav": false,
+                    "dots": true,
+                    "margin": 20,
+                    "loop": false,
+                    "responsive": {
+                        "0": {"items":1},
+                        "480": {"items":2},
+                        "768": {"items":3},
+                        "992": {"items":4},
+                        "1200": {"items":4, "nav": true, "dots": false}
+                    }
+                }'>
+                @foreach($categories as $category)
+                    <div class="banner banner-display banner-link-anim text-center">
+                        <a href="{{ route('category.products', $category->id) }}">
+                            <img src="{{ $category->image_url }}" alt="{{ $category->name }}">
+                        </a>
+                        <div class="banner-content banner-content-center">
+                            <h3 class="banner-title text-white">
+                                <a href="{{ route('category.products', $category->id) }}">{{ $category->name }}</a>
+                            </h3>
+                            <a href="{{ route('category.products', $category->id) }}" class="btn btn-outline-white banner-link">
+                                Shop Now <i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-            <div class="container">
-                <div class="row">
-
-                    @forelse($categories as $category)
-                        <div class="col-md-6 col-lg-3">
-                            <div class="banner banner-overlay"> 
-                                <a href="{{ route('category.products', $category->id) }}">
-                                    <img src="{{ asset('assets/images/demos/demo-2/banners/banner-1.jpg') }}" alt="{{ $category->name }}">
-                                </a>
-                                <div class="banner-content banner-content-bottom">
-                                    <h4 class="banner-subtitle text-grey">Top Category</h4>
-                                    <h3 class="banner-title text-white">{{ $category->name }}</h3>
-                                    <div class="banner-text text-white">
-                                        {{ $category->products->count() }} Items
-                                    </div>
-                                    <a href="{{ route('category.products', $category->id) }}" class="btn btn-outline-white banner-link">
-                                        Discover Now <i class="icon-long-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="col-12 text-center py-4">
-                            <p>No categories found.</p>
-                        </div>
-                    @endforelse
-
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</div>
-    </div>
+    <div class="mb-6"></div>
 
-    <div class="mb-5"></div>
 
+
+    {{-- ===========================
+        TRENDY PRODUCTS CAROUSEL
+    ============================ --}}
     <div class="container">
         <div class="heading heading-center mb-3">
-            <h2 class="title">{{__('The Latest Products')}}</h2>
+            <h2 class="title-lg">{{ __('Trendy Products') }}</h2>
         </div>
-
-         <div class="tab-content">
-
-           <!-- ALL PRODUCTS -->
-            <div class="tab-pane fade show active" id="top-all-tab">
-                <div class="row justify-content-center product-card">
-                    @foreach($products as $product)
-                    <div class="col-6 col-md-4 col-lg-3 col-xl-5col ">
-                        <div class="product product-11 text-center">
-                            <figure class="product-media">
-                                @if($product->stock <= 0)
-                                <span class="product-label label-out">{{__('Out of Stock')}}</span>
-                                @endif
-
-                                <a href="{{ route('product.show', $product->slug) }}">
-                                    <!-- Default image if not found -->
-                                    <img src="{{ $product->image_url  }}" 
-                                        alt="{{ $product->name }}" class="product-image">
-                                   
-                                 
-                                </a>
-
-                                    <div class="product-action-vertical">
-                                       <a href="javascript:;" 
-                                        data-id="{{ $product->id}}"
-                                        class="btn-product-icon btn-wishlist">
-                                            <span>Add to Wishlist</span>
-                                        </a>
-                                    </div>
-
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">{{ $product->category->name ?? 'No Category' }}</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a  href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
-                               
-                                                        
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    ${{ $product->sale_price }}
-                                    @if($product->price > $product->sale_price)
-                                        <span class="discount-price">${{ $product->price }}</span>
-                                    @endif
-                                </div><!-- End .product-price -->
-                            </div><!-- End .product-body -->
-
-                            {{-- <!-- Add to cart form -->
-                            <form id="add_to_cart_{{ $product->id }}" action="{{ route('cart') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            </form>
-
-                            <div class="product-action">
-                                <a href="javascript:;" 
-                                onclick="document.getElementById('add_to_cart_{{ $product->id }}').submit()" 
-                                class="btn-product btn-cart">
-                                    <span>add to cart</span>
-                                </a>
-                            </div><!-- End .product-action --> --}}
-                  <div class="product-action">
-                    <a href="javascript:;" 
-                    data-id="{{ $product->id }}"
-                    class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
-                    
-                        <span>
-                            {{ $product->stock <= 0 ? __('out of stock') : __('add to cart') }}
-                        </span>
-                        
+        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+            data-owl-options='{
+                "nav": false, 
+                "dots": true,
+                "margin": 20,
+                "loop": false,
+                "responsive": {
+                    "0": {"items":2},
+                    "480": {"items":2},
+                    "768": {"items":3},
+                    "992": {"items":4},
+                    "1200": {"items":4,"nav": true,"dots": false}
+                }
+            }'>
+            @foreach($trendyProducts as $product)
+            <div class="product product-11 text-center">
+                <figure class="product-media">
+                    <a href="{{ route('product.show', $product->slug) }}">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image">
+                    </a>
+                    <div class="product-action-vertical">
+                        <a href="javascript:;" data-id="{{ $product->id }}" class="btn-product-icon btn-wishlist">
+                            <span>{{ __('Add to Wishlist') }}</span>
+                        </a>
+                    </div>
+                </figure>
+                <div class="product-body">
+                    <h3 class="product-title">
+                        <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                    </h3>
+                    <div class="product-price">
+                        ${{ $product->sale_price }}
+                        @if($product->price > $product->sale_price)
+                            <span class="discount-price">${{ $product->price }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="product-action">
+                    <a href="javascript:;" data-id="{{ $product->id }}" class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
+                        <span>{{ $product->stock <= 0 ? __('Out of Stock') : __('Add to Cart') }}</span>
                     </a>
                 </div>
-                        </div><!-- End .product -->
-                    </div><!-- End .col -->
-                    @endforeach
-                </div><!-- End .row -->
-            </div><!-- End .tab-pane -->
-         </div>
+            </div>
+            @endforeach
+        </div>
     </div>
 
+    <div class="mb-6"></div>
+
+    {{-- ===========================
+        RECENT ARRIVALS
+    ============================ --}}
     <div class="container">
-        <hr class="mt-1 mb-6">
+        <div class="heading heading-center mb-3">
+            <h2 class="title-lg">{{ __('Recent Arrivals') }}</h2>
+        </div>
+        <div class="row justify-content-center">
+            @foreach($recentArrivals as $product)
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="product product-11 text-center">
+                    <figure class="product-media">
+                        <a href="{{ route('product.show', $product->slug) }}">
+                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image">
+                        </a>
+                        <div class="product-action-vertical">
+                            <a href="javascript:;" data-id="{{ $product->id }}" class="btn-product-icon btn-wishlist">
+                                <span>{{ __('Add to Wishlist') }}</span>
+                            </a>
+                        </div>
+                    </figure>
+                    <div class="product-body">
+                        <h3 class="product-title">
+                            <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                        </h3>
+                        <div class="product-price">
+                            ${{ $product->sale_price }}
+                            @if($product->price > $product->sale_price)
+                                <span class="discount-price">${{ $product->price }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="product-action">
+                        <a href="javascript:;" data-id="{{ $product->id }}" class="btn-product btn-cart {{ $product->stock <= 0 ? 'disable' : '' }}">
+                            <span>{{ $product->stock <= 0 ? __('Out of Stock') : __('Add to Cart') }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
     </div>
+
+    <div class="mb-6"></div>
 
 </main>
 
 @endsection
-  
-
-{{-- @push('styles')
-<style>
-    .stock-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: red;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 4px;
-    z-index: 10;
-}
-</style>
-@endpush --}}

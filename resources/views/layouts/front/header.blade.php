@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery.countdown.css') }}">
 
 <!-- Main CSS File -->
+
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/skins/skin-demo-2.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/demos/demo-2.css') }}">
@@ -43,6 +44,9 @@
     <link rel="manifest" href="{{ asset('assets/images/icons/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ asset('assets/images/icons/safari-pinned-tab.svg') }}" color="#666666">
     <link rel="shortcut icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/icons/favicon.ico') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/nouislider/nouislider.css') }}">
+
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
@@ -51,12 +55,15 @@
     <meta name="theme-color" content="#ffffff">
         <!-- head section -->
         <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
        @stack('styles')
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
     <style>
         .logo-img {
             max-height: 40px;   
@@ -121,9 +128,7 @@
 
                         <ul>
                             <li>
-                                <a href="tel:{{ $setting->phone }}">
                                     <i class="icon-phone"></i> {{ $setting->phone }}
-                                </a>
                             </li>
 
 
